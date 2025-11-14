@@ -187,19 +187,55 @@ a {
 
 .hero-home {
   position: relative;
-  padding: 110px 0;
-  min-height: 420px;
-  background:
-    radial-gradient(circle at left top, rgba(0, 135, 212, 0.62), transparent 50%),
-    linear-gradient(135deg, rgba(229, 37, 42, 0.4), rgba(0, 103, 170, 0.6)),
-    url('../anasayfa.jpg') center/cover no-repeat;
+  padding: 180px 0;
+  min-height: 620px;
   border-bottom: 1px solid var(--gray-200);
   color: #fff;
-  background-size:
-    auto,
-    cover;
-  background-attachment: scroll, fixed;
+  overflow: hidden;
+  background: #06142b;
+  --hero-photo: url('../anasayfa.jpg');
+  --hero-photo-opacity: 1;
+}
+
+.hero-home > * {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-home::before,
+.hero-home::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-home::before {
+  background-image: var(--hero-photo);
+  background-size: cover;
   background-position: center;
+  opacity: var(--hero-photo-opacity);
+  transition: opacity 1.5s ease-in-out;
+  transform-origin: center;
+  animation: heroPhotoZoom 22s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+.hero-home::after {
+  background:
+    radial-gradient(circle at left top, rgba(0, 135, 212, 0.62), transparent 50%),
+    linear-gradient(135deg, rgba(229, 37, 42, 0.5), rgba(0, 103, 170, 0.65));
+  opacity: 0.95;
+  z-index: 1;
+}
+
+@keyframes heroPhotoZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
 }
 
 .hero-inner {
@@ -208,15 +244,69 @@ a {
   max-width: 780px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  animation: heroFadeInUp 1.2s ease-out;
 }
 
-.hero-inner h1 {
+.hero-title-text {
   margin: 0;
   font-size: clamp(2.8rem, 5vw, 3.6rem);
   font-weight: 800;
   line-height: 1.05;
-  color: inherit;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  animation: heroTextSlide 1s ease-out 0.3s both;
+  letter-spacing: 0.02em;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  will-change: opacity, transform;
 }
+
+.hero-subtitle-text {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  letter-spacing: 0.12em;
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4), 0 1px 6px rgba(0, 0, 0, 0.25);
+  animation: heroSubtitleFadeIn 1s ease-out 0.5s both;
+  transition: opacity 1s ease-in-out 0.15s, transform 1s ease-in-out 0.15s;
+  will-change: opacity, transform;
+  max-width: 90%;
+}
+
+@keyframes heroSubtitleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroTextSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 
 .page-hero.general {
   padding: 72px 0 36px;
@@ -1039,6 +1129,20 @@ textarea {
   .header-cta {
     display: none;
   }
+
+  .hero-home {
+    padding: 120px 0;
+    min-height: 560px;
+  }
+
+  .solution-category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .product-highlight-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -1046,6 +1150,62 @@ textarea {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  .hero-home {
+    padding: 100px 0;
+    min-height: 480px;
+  }
+
+  .hero-inner {
+    gap: 14px;
+  }
+
+  .product-highlight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .solution-category-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .product-compact-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 14px;
+  }
+
+  .partner-logos {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+  }
+
+  .product-detail-actions {
+    flex-direction: column;
+  }
+
+  .product-detail-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-home {
+    padding: 80px 0;
+    min-height: 420px;
+  }
+
+  .container {
+    width: 95%;
+  }
+
+  .product-compact-card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .solution-category {
+    padding: 16px;
   }
 }
 
