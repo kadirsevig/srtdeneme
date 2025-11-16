@@ -193,7 +193,7 @@ a {
   color: #fff;
   overflow: hidden;
   background: #06142b;
-  --hero-photo: url('../anasayfa.jpg');
+  --hero-photo: url('https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/hematology/medium-test-volume/bc-6000/glp18-s3.jpg');
   --hero-photo-opacity: 1;
 }
 
@@ -646,6 +646,27 @@ a {
   transform: translateY(-1px);
 }
 
+.product-compact-info {
+  display: grid;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.product-compact-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-dark);
+  line-height: 1.3;
+}
+
+.product-compact-desc {
+  margin: 0;
+  font-size: 12px;
+  color: var(--gray-600);
+  line-height: 1.4;
+}
+
 @media (max-width: 720px) {
   .solution-category {
     padding: 22px;
@@ -653,6 +674,11 @@ a {
 
   .product-compact-grid {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .product-showcase {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 
@@ -952,6 +978,84 @@ a {
   stroke-width: 1.2;
 }
 
+.turkey-map-panel .province-label {
+  pointer-events: none;
+  user-select: none;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.turkey-map-panel .province-label-active {
+  font-size: 11px;
+  font-weight: 600;
+  fill: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 4px rgba(0, 0, 0, 0.3);
+  paint-order: stroke fill;
+  stroke: rgba(0, 0, 0, 0.5);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+}
+
+.turkey-map-panel .province-label-inactive {
+  font-size: 9px;
+  font-weight: 500;
+  fill: #64748b;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+  paint-order: stroke fill;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  opacity: 0.75;
+}
+
+.product-showcase-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #15803d;
+  text-align: center;
+  margin: 0 0 32px;
+  letter-spacing: 0.02em;
+}
+
+.product-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 0;
+}
+
+.product-showcase-media {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.25);
+  background: #fff;
+}
+
+.product-showcase-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.product-showcase-video {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.25);
+  background: #000;
+}
+
+.product-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
+
 .map-legend {
   margin-top: 28px;
   background: #fff;
@@ -1155,6 +1259,16 @@ textarea {
   .hero-home {
     padding: 100px 0;
     min-height: 480px;
+  }
+
+  .product-showcase {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .product-showcase-image {
+    max-height: 300px;
+    object-fit: cover;
   }
 
   .hero-inner {

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
 
@@ -54,6 +54,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderTurkeyMap();
   initHeroSlideshow();
+}
+
+// Hem DOMContentLoaded hem de window.onload'da çalıştır
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+// Ek güvenlik için window.onload'da da çalıştır
+window.addEventListener('load', () => {
+  // Hero slideshow çalışmıyorsa tekrar dene
+  const hero = document.querySelector('.hero-home');
+  const heroTitle = document.getElementById('hero-title');
+  if (hero && heroTitle && heroSlideshowInterval === null) {
+    // Eğer başlık hala varsayılan metindeyse slideshow çalışmamış demektir
+    const defaultTitle = 'Laboratuvar ve Yoğun Bakım Çözümlerinde Güvenilir İş Ortağınız';
+    if (heroTitle.textContent === defaultTitle) {
+      initHeroSlideshow();
+    }
+  }
 });
 
 
@@ -64,10 +85,29 @@ function renderTurkeyMap() {
   }
 
   const loadingOverlay = mapPanel.querySelector('.map-loading');
-  const activeProvinces = (mapPanel.dataset.activeProvinces || '')
+  // Aktif şehirler listesi - hem orijinal isim hem slug hem de normalize edilmiş isimleri tut
+  const activeProvincesRaw = (mapPanel.dataset.activeProvinces || '')
     .split(',')
-    .map((province) => slugifyProvince(province))
+    .map(p => p.trim())
     .filter(Boolean);
+  
+  // Her aktif şehir için slug ve normalize edilmiş versiyonlar oluştur
+  const activeProvincesData = activeProvincesRaw.map(province => {
+    const slug = slugifyProvince(province);
+    const normalized = province
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\w\s]/g, '')
+      .replace(/\s+/g, '');
+    
+    return {
+      original: province,
+      slug: slug,
+      normalized: normalized
+    };
+  });
+  
 
   const mapWidth = mapPanel.clientWidth || 960;
   const mapHeight = Math.max(400, Math.round(mapWidth * 0.42));
@@ -85,6 +125,7 @@ function renderTurkeyMap() {
 
       const projection = d3.geoMercator().fitSize([mapWidth, mapHeight], geojson);
       const geoPath = d3.geoPath(projection);
+      
 
       const svg = d3
         .select(mapPanel)
@@ -95,16 +136,74 @@ function renderTurkeyMap() {
 
       const provincesGroup = svg.append('g').attr('class', 'turkey-provinces');
 
-      provincesGroup
+      const provincesPaths = provincesGroup
         .selectAll('path')
         .data(geojson.features)
         .join('path')
         .attr('d', geoPath)
         .attr('data-province', (feature) => feature.properties.name)
         .attr('class', (feature) => {
-          const slug = slugifyProvince(feature.properties.name);
+          const provinceName = feature.properties.name;
+          const slug = slugifyProvince(provinceName);
           const classes = ['province', `province-${slug}`];
-          if (activeProvinces.includes(slug)) {
+          
+          // Çoklu eşleştirme yöntemi - her şehir için tüm yöntemleri dene
+          let isActive = false;
+          
+          // 1. Orijinal isim ile direkt eşleşme (case-insensitive, trim)
+          const provinceNameLower = provinceName.toLowerCase().trim();
+          isActive = activeProvincesRaw.some(active => 
+            active.toLowerCase().trim() === provinceNameLower
+          );
+          
+          // 2. Slug ile eşleşme
+          if (!isActive) {
+            isActive = activeProvincesData.some(activeData => activeData.slug === slug);
+          }
+          
+          // 3. Normalize edilmiş isim ile eşleşme
+          if (!isActive) {
+            const normalizedName = provinceName
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/[^\w\s]/g, '')
+              .replace(/\s+/g, '');
+            
+            isActive = activeProvincesData.some(activeData => {
+              if (activeData.normalized === normalizedName) return true;
+              
+              // Kahramanmaraş için özel kontrol - kısmi eşleşme
+              if (normalizedName.includes('kahramanmaras') || normalizedName === 'kahramanmaras') {
+                if (activeData.normalized.includes('kahramanmaras') || 
+                    activeData.normalized.includes('kmaras') ||
+                    activeData.original.toLowerCase().includes('kahraman') ||
+                    activeData.original.toLowerCase().includes('maraş')) {
+                  return true;
+                }
+              }
+              
+              return false;
+            });
+          }
+          
+          // 4. Kahramanmaraş için özel manuel kontrol
+          if (!isActive) {
+            const provinceLower = provinceName.toLowerCase();
+            if (provinceLower.includes('kahraman') || provinceLower.includes('maraş') || 
+                provinceLower.includes('maras')) {
+              isActive = activeProvincesRaw.some(active => {
+                const activeLower = active.toLowerCase();
+                return activeLower.includes('kahraman') || 
+                       activeLower.includes('maraş') || 
+                       activeLower.includes('maras') ||
+                       activeLower.includes('k.maraş') ||
+                       activeLower.includes('k.maras');
+              });
+            }
+          }
+          
+          if (isActive) {
             classes.push('is-active');
           }
           return classes.join(' ');
@@ -112,6 +211,87 @@ function renderTurkeyMap() {
         .each(function appendTitle(feature) {
           d3.select(this).append('title').text(feature.properties.name);
         });
+
+      // Tüm şehirler için isim etiketleri ekle
+      const labelsGroup = svg.append('g').attr('class', 'province-labels');
+      
+      provincesPaths.each(function() {
+        const feature = d3.select(this).datum();
+        const provinceName = feature.properties.name;
+        const slug = slugifyProvince(provinceName);
+        
+        // Bu şehir aktif mi kontrol et
+        let isActive = false;
+        
+        // 1. Orijinal isim ile direkt eşleşme (case-insensitive, trim)
+        const provinceNameLower = provinceName.toLowerCase().trim();
+        isActive = activeProvincesRaw.some(active => 
+          active.toLowerCase().trim() === provinceNameLower
+        );
+        
+        // 2. Slug ile eşleşme
+        if (!isActive) {
+          isActive = activeProvincesData.some(activeData => activeData.slug === slug);
+        }
+        
+        // 3. Normalize edilmiş isim ile eşleşme
+        if (!isActive) {
+          const normalizedName = provinceName
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^\w\s]/g, '')
+            .replace(/\s+/g, '');
+          
+          isActive = activeProvincesData.some(activeData => {
+            if (activeData.normalized === normalizedName) return true;
+            
+            // Kahramanmaraş için özel kontrol - kısmi eşleşme
+            if (normalizedName.includes('kahramanmaras') || normalizedName === 'kahramanmaras') {
+              if (activeData.normalized.includes('kahramanmaras') || 
+                  activeData.normalized.includes('kmaras') ||
+                  activeData.original.toLowerCase().includes('kahraman') ||
+                  activeData.original.toLowerCase().includes('maraş')) {
+                return true;
+              }
+            }
+            
+            return false;
+          });
+        }
+        
+        // 4. Kahramanmaraş için özel manuel kontrol
+        if (!isActive) {
+          const provinceLower = provinceName.toLowerCase();
+          if (provinceLower.includes('kahraman') || provinceLower.includes('maraş') || 
+              provinceLower.includes('maras')) {
+            isActive = activeProvincesRaw.some(active => {
+              const activeLower = active.toLowerCase();
+              return activeLower.includes('kahraman') || 
+                     activeLower.includes('maraş') || 
+                     activeLower.includes('maras') ||
+                     activeLower.includes('k.maraş') ||
+                     activeLower.includes('k.maras');
+            });
+          }
+        }
+        
+        // Etiket ekle
+        const centroid = geoPath.centroid(feature);
+        if (centroid && !isNaN(centroid[0]) && !isNaN(centroid[1])) {
+          const displayName = getDisplayName(feature.properties.name);
+          const labelClass = isActive ? 'province-label province-label-active' : 'province-label province-label-inactive';
+          
+          labelsGroup
+            .append('text')
+            .attr('x', centroid[0])
+            .attr('y', centroid[1])
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('class', labelClass)
+            .text(displayName);
+        }
+      });
 
       if (loadingOverlay) {
         loadingOverlay.remove();
@@ -142,14 +322,58 @@ function slugifyProvince(value) {
     .replace(/[^\w]+/g, '-');
 }
 
+function getDisplayName(provinceName) {
+  // Şehir isimlerini haritada gösterirken kısaltılmış versiyonlarını kullan
+  const displayNames = {
+    'Kahramanmaraş': 'K.Maraş',
+    'Kahramanmaras': 'K.Maraş',
+    'k.maraş': 'K.Maraş',
+    'k.maras': 'K.Maraş'
+  };
+  
+  const normalized = provinceName
+    .toString()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+  
+  // Tam eşleşme kontrolü
+  for (const [key, value] of Object.entries(displayNames)) {
+    if (normalized === key.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()) {
+      return value;
+    }
+  }
+  
+  // Kahramanmaraş için özel kontrol
+  if (normalized.includes('kahramanmaras')) {
+    return 'K.Maraş';
+  }
+  
+  return provinceName;
+}
+
+let heroSlideshowInterval = null;
+
 function initHeroSlideshow() {
+  // Zaten çalışıyorsa tekrar başlatma
+  if (heroSlideshowInterval !== null) {
+    return;
+  }
+
   const hero = document.querySelector('.hero-home');
   if (!hero) {
+    console.warn('Hero section bulunamadı');
     return;
   }
 
   const heroTitle = document.getElementById('hero-title');
   const heroSubtitle = document.getElementById('hero-subtitle');
+  
+  if (!heroTitle || !heroSubtitle) {
+    console.warn('Hero title veya subtitle bulunamadı');
+    return;
+  }
 
   const heroContent = [
     {
@@ -222,8 +446,21 @@ function initHeroSlideshow() {
     }, fadeDuration);
   };
 
-  setTimeout(updateHeroContent, 1200);
-  setInterval(updateHeroContent, 10000);
+  // İlk görüntüyü hemen ayarla
+  try {
+    const firstContent = heroContent[0];
+    hero.style.setProperty('--hero-photo', `url('${firstContent.image}')`);
+    hero.style.setProperty('--hero-photo-opacity', '1');
+    if (heroTitle) heroTitle.textContent = firstContent.title;
+    if (heroSubtitle) heroSubtitle.textContent = firstContent.subtitle;
+    heroIndex = 1;
+    
+    // İlk geçişi başlat
+    setTimeout(updateHeroContent, 1200);
+    heroSlideshowInterval = setInterval(updateHeroContent, 10000);
+  } catch (error) {
+    console.error('Hero slideshow başlatılamadı:', error);
+  }
 }
 
 
