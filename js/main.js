@@ -405,6 +405,26 @@ function initHeroSlideshow() {
       image: 'https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemiluminescence-immunoassay/large-test-volume/sal-6000/glp96-s2.jpg',
       title: 'Entegre Laboratuvar Sistemleri',
       subtitle: 'SAL 6000 ile kimya ve immünoassay entegrasyonu. Yüksek hacimli laboratuvarlar için ideal çözüm ve otomasyon.'
+    },
+    {
+      image: 'https://www.succeeder.com/uploads/SF9200_20220713095902.jpg',
+      title: 'Koagülasyon Analizörleri',
+      subtitle: 'Succeeder SF-9200 ile tam otomatik pıhtılaşma analizi. Büyük düzey laboratuvarlar için yüksek kapasiteli sistem ve geniş test menüsü.'
+    },
+    {
+      image: 'https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemiluminescence-immunoassay/large-test-volume/cl-6000i/glp60-s2.jpg',
+      title: 'Hormon Çözümleri',
+      subtitle: 'Mindray CL-6000i kemilüminesans immünoassay analizörü. Yüksek test hacmi laboratuvarlar için tam otomatik ve güvenilir sonuçlar.'
+    },
+    {
+      image: 'https://www.novabiomedical.com/statstrip-new-gen/img/stat-glu-new-gen_2.jpg',
+      title: 'Hospital Glukoz/Keton Metre',
+      subtitle: 'StatStrip Yeni Nesil ile Linux tabanlı işletim sistemi ve gelişmiş siber güvenlik. Tüm kritik hasta örnekleri için FDA onaylı tek glukoz metre.'
+    },
+    {
+      image: 'https://static.wixstatic.com/media/48ddcc_e982a02749e948119611a377b3e0fdd2~mv2.jpg/v1/fill/w_720,h_450,al_c,lg_1,q_80,enc_avif,quality_auto/48ddcc_e982a02749e948119611a377b3e0fdd2~mv2.jpg',
+      title: 'İdrar Mikroskopisi Analizörü',
+      subtitle: 'TRIsed-200 ile yapay zeka destekli tam otomatik idrar mikroskopisi. Akış hücresi teknolojisi ve 120 test/saat kapasitesi.'
     }
   ];
 
@@ -457,7 +477,7 @@ function initHeroSlideshow() {
     
     // İlk geçişi başlat
     setTimeout(updateHeroContent, 1200);
-    heroSlideshowInterval = setInterval(updateHeroContent, 10000);
+    heroSlideshowInterval = setInterval(updateHeroContent, 5000);
   } catch (error) {
     console.error('Hero slideshow başlatılamadı:', error);
   }
