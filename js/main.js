@@ -291,7 +291,7 @@ function renderTurkeyMap() {
             .attr('class', labelClass)
             .text(displayName);
         }
-      });
+        });
 
       if (loadingOverlay) {
         loadingOverlay.remove();
@@ -480,6 +480,112 @@ function initHeroSlideshow() {
     heroSlideshowInterval = setInterval(updateHeroContent, 5000);
   } catch (error) {
     console.error('Hero slideshow başlatılamadı:', error);
+  }
+
+  // Menü öğelerine hover efekti ekle (hero üzerinde değilse çalışmaz)
+  const navLinks = document.querySelectorAll('.nav-links a[data-hero-image]');
+  if (navLinks.length > 0) {
+    let hoverTimeout = null;
+    let changeTimeout = null;
+    let currentHoverIndex = null;
+    let isHovering = false;
+
+    navLinks.forEach((link) => {
+    link.addEventListener('mouseenter', () => {
+      isHovering = true;
+      
+      // Eğer zaten hover yapılmışsa, sadece timeout'u iptal et
+      if (changeTimeout) {
+        clearTimeout(changeTimeout);
+      }
+      if (hoverTimeout) {
+        clearTimeout(hoverTimeout);
+      }
+
+      const imageIndex = parseInt(link.getAttribute('data-hero-image'), 10);
+      
+      // Aynı resme geçiş yapıyorsak işlem yapma
+      if (currentHoverIndex === imageIndex) {
+        return;
+      }
+      
+      if (imageIndex >= 0 && imageIndex < heroContent.length) {
+        // Otomatik geçişi durdur
+        if (heroSlideshowInterval) {
+          clearInterval(heroSlideshowInterval);
+          heroSlideshowInterval = null;
+        }
+
+        // Kısa bir gecikme ile değişikliği yap (hızlı geçişlerde animasyon olmasın)
+        changeTimeout = setTimeout(() => {
+          if (!isHovering) return;
+          
+          currentHoverIndex = imageIndex;
+          const content = heroContent[imageIndex];
+          
+          // Daha yumuşak geçiş
+          hero.style.setProperty('--hero-photo-opacity', '0');
+          
+          setTimeout(() => {
+            hero.style.setProperty('--hero-photo', `url('${content.image}')`);
+            hero.style.setProperty('--hero-photo-opacity', '1');
+            
+            if (heroTitle) {
+              heroTitle.style.opacity = '0';
+              heroTitle.style.transform = 'translateY(10px)';
+              setTimeout(() => {
+                heroTitle.textContent = content.title;
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'translateY(0)';
+              }, 100);
+            }
+            
+            if (heroSubtitle) {
+              heroSubtitle.style.opacity = '0';
+              heroSubtitle.style.transform = 'translateY(8px)';
+              setTimeout(() => {
+                heroSubtitle.textContent = content.subtitle;
+                heroSubtitle.style.opacity = '1';
+                heroSubtitle.style.transform = 'translateY(0)';
+              }, 150);
+            }
+          }, 200);
+        }, 150); // Kısa bir gecikme ile animasyonu başlat
+      }
+    });
+
+    link.addEventListener('mouseleave', () => {
+      isHovering = false;
+      currentHoverIndex = null;
+      
+      // Hover timeout'ları temizle
+      if (changeTimeout) {
+        clearTimeout(changeTimeout);
+        changeTimeout = null;
+      }
+      
+      // Tüm menülerden çıkıldığında slideshow'a dön
+      hoverTimeout = setTimeout(() => {
+        if (!isHovering) {
+          // Otomatik geçişi yeniden başlat
+          if (!heroSlideshowInterval) {
+            heroSlideshowInterval = setInterval(updateHeroContent, 5000);
+          }
+        }
+      }, 800);
+    });
+    });
+  }
+
+  // Scroll indicator click handler
+  const scrollIndicator = document.querySelector('.hero-scroll-indicator');
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', () => {
+      const nextSection = document.querySelector('.hero-home').nextElementSibling;
+      if (nextSection) {
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   }
 }
 
