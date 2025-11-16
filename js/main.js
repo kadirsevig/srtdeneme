@@ -54,6 +54,7 @@ function initApp() {
 
   renderTurkeyMap();
   initHeroSlideshow();
+  initVideoModal();
 }
 
 // Hem DOMContentLoaded hem de window.onload'da çalıştır
@@ -587,6 +588,76 @@ function initHeroSlideshow() {
       }
     });
   }
+}
+
+function initVideoModal() {
+  const videoCards = document.querySelectorAll('.video-card');
+
+  // Video kartlarına tıklama eventi ekle
+  videoCards.forEach((card) => {
+    const video = card.querySelector('video');
+    const overlay = card.querySelector('.video-play-overlay');
+    const thumbnail = card.querySelector('.video-card-thumbnail');
+    
+    if (!video || !overlay) return;
+
+    // Overlay'e tıklandığında
+    overlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      overlay.style.display = 'none';
+      video.play().catch(err => {
+        console.error('Video oynatılamadı:', err);
+      });
+    });
+
+    // Thumbnail alanına tıklandığında (overlay hariç)
+    if (thumbnail) {
+      thumbnail.addEventListener('click', (e) => {
+        // Eğer overlay'e veya video kontrollerine tıklanmadıysa
+        if (!overlay.contains(e.target) && e.target !== video && !video.contains(e.target)) {
+          overlay.style.display = 'none';
+          card.classList.add('is-playing');
+          video.play().catch(err => {
+            console.error('Video oynatılamadı:', err);
+          });
+        }
+      });
+    }
+
+    // Video oynatıldığında overlay'i gizle ve playing class'ı ekle
+    video.addEventListener('play', () => {
+      video.classList.add('playing');
+      card.classList.add('is-playing');
+      overlay.style.display = 'none';
+      overlay.style.pointerEvents = 'none';
+      overlay.style.zIndex = '0';
+    });
+
+    // Video duraklatıldığında overlay'i göster
+    video.addEventListener('pause', () => {
+      if (video.currentTime > 0 && !video.ended) {
+        video.classList.remove('playing');
+        card.classList.remove('is-playing');
+        overlay.style.display = 'flex';
+        overlay.style.pointerEvents = 'auto';
+        overlay.style.zIndex = '2';
+      }
+    });
+
+    // Video başlangıca döndüğünde overlay'i göster
+    video.addEventListener('ended', () => {
+      video.classList.remove('playing');
+      card.classList.remove('is-playing');
+      overlay.style.display = 'flex';
+      overlay.style.pointerEvents = 'auto';
+      overlay.style.zIndex = '2';
+    });
+
+    // Video yüklendiğinde kontrollerin görünür olmasını sağla
+    video.addEventListener('loadedmetadata', () => {
+      video.style.pointerEvents = 'auto';
+    });
+  });
 }
 
 
