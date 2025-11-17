@@ -212,6 +212,13 @@ a {
   -webkit-tap-highlight-color: transparent;
   z-index: 1001;
   position: relative;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.nav-toggle:focus {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
 }
 
 .nav-toggle span {
@@ -2274,10 +2281,11 @@ textarea {
 
   .nav-links.is-open,
   .nav-links[aria-expanded='true'] {
-    transform: scale(1);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    display: flex !important;
   }
   
   .nav-links:not(.is-open):not([aria-expanded='true']) {

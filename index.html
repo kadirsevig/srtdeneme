@@ -331,6 +331,62 @@
       </div>
     </footer>
     <script src="js/main.js?v=3.2"></script>
+    <script>
+      // Mobil menü için inline script - güvenilir çalışması için
+      (function() {
+        function initMobileMenu() {
+          const navToggle = document.querySelector('.nav-toggle');
+          const navLinks = document.querySelector('.nav-links');
+          
+          if (!navToggle || !navLinks) {
+            console.log('Menu elements not found');
+            return;
+          }
+          
+          console.log('Menu elements found, setting up listeners');
+          
+          navToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Menu button clicked');
+            
+            const isOpen = navLinks.classList.contains('is-open');
+            console.log('Current state:', isOpen);
+            
+            if (isOpen) {
+              navLinks.classList.remove('is-open');
+              navToggle.setAttribute('aria-expanded', 'false');
+              navLinks.setAttribute('aria-expanded', 'false');
+              console.log('Menu closed');
+            } else {
+              navLinks.classList.add('is-open');
+              navToggle.setAttribute('aria-expanded', 'true');
+              navLinks.setAttribute('aria-expanded', 'true');
+              console.log('Menu opened');
+            }
+          });
+          
+          // Linklere tıklandığında menüyü kapat
+          navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+              navLinks.classList.remove('is-open');
+              navToggle.setAttribute('aria-expanded', 'false');
+              navLinks.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
+        
+        // DOM yüklendiğinde çalıştır
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initMobileMenu);
+        } else {
+          initMobileMenu();
+        }
+        
+        // Ek güvenlik için kısa bir gecikme ile de çalıştır
+        setTimeout(initMobileMenu, 100);
+      })();
+    </script>
   </body>
 </html>
 
