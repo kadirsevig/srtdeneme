@@ -591,6 +591,22 @@ function initHeroSlideshow() {
 }
 
 function initVideoModal() {
+  // Video kaynaklarını URL encode et (sadece boşlukları)
+  const videoSources = document.querySelectorAll('.video-card video source');
+  videoSources.forEach((source) => {
+    const originalSrc = source.getAttribute('src');
+    if (originalSrc && originalSrc.includes(' ')) {
+      // Dosya adındaki boşlukları %20 ile değiştir
+      const encodedSrc = originalSrc.replace(/ /g, '%20');
+      source.setAttribute('src', encodedSrc);
+      // Video elementinin src'sini de güncelle
+      const video = source.closest('video');
+      if (video) {
+        video.load(); // Video kaynağını yeniden yükle
+      }
+    }
+  });
+
   const videoCards = document.querySelectorAll('.video-card');
 
   // Video kartlarına tıklama eventi ekle
@@ -603,34 +619,43 @@ function initVideoModal() {
 
     // Overlay'e tıklandığında
     overlay.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
+      
+      // Overlay'i gizle
       overlay.style.display = 'none';
-      video.play().catch(err => {
-        console.error('Video oynatılamadı:', err);
-      });
-    });
-
-    // Thumbnail alanına tıklandığında (overlay hariç)
-    if (thumbnail) {
-      thumbnail.addEventListener('click', (e) => {
-        // Eğer overlay'e veya video kontrollerine tıklanmadıysa
-        if (!overlay.contains(e.target) && e.target !== video && !video.contains(e.target)) {
-          overlay.style.display = 'none';
-          card.classList.add('is-playing');
-          video.play().catch(err => {
+      overlay.style.pointerEvents = 'none';
+      
+      // Video'yu göster
+      video.style.opacity = '1';
+      video.style.zIndex = '10';
+      
+      // Video'yu oynat
+      const playPromise = video.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Video başarıyla oynatıldı
+            card.classList.add('is-playing');
+          })
+          .catch(err => {
             console.error('Video oynatılamadı:', err);
+            // Hata durumunda overlay'i geri göster
+            overlay.style.display = 'flex';
+            overlay.style.pointerEvents = 'auto';
           });
-        }
-      });
-    }
+      }
+    });
 
     // Video oynatıldığında overlay'i gizle ve playing class'ı ekle
     video.addEventListener('play', () => {
       video.classList.add('playing');
       card.classList.add('is-playing');
+      video.style.opacity = '1';
+      video.style.zIndex = '10';
       overlay.style.display = 'none';
       overlay.style.pointerEvents = 'none';
-      overlay.style.zIndex = '0';
     });
 
     // Video duraklatıldığında overlay'i göster
