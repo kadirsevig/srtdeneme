@@ -2227,7 +2227,7 @@ textarea {
 
   .nav-links {
     position: fixed;
-    top: 80px;
+    top: 70px;
     right: 4%;
     left: 4%;
     flex-direction: column;
@@ -2241,11 +2241,12 @@ textarea {
     transform: scale(0.9);
     opacity: 0;
     visibility: hidden;
-    transition: transform var(--transition), opacity var(--transition), visibility var(--transition);
-    max-height: calc(100vh - 120px);
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    max-height: calc(100vh - 100px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 1000;
+    width: auto;
   }
   
   .nav-links li {
@@ -2271,6 +2272,7 @@ textarea {
     color: var(--gray-800);
   }
 
+  .nav-links.is-open,
   .nav-links[aria-expanded='true'] {
     transform: scale(1);
     opacity: 1;
@@ -2278,7 +2280,7 @@ textarea {
     pointer-events: auto;
   }
   
-  .nav-links[aria-expanded='false'] {
+  .nav-links:not(.is-open):not([aria-expanded='true']) {
     pointer-events: none;
   }
 

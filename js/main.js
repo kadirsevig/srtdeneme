@@ -3,30 +3,43 @@ function initApp() {
   const navLinks = document.querySelector('.nav-links');
 
   if (navToggle && navLinks) {
-    navToggle.addEventListener('click', (e) => {
+    // Menü toggle fonksiyonu
+    function toggleMenu() {
+      const isOpen = navLinks.classList.contains('is-open');
+      
+      if (isOpen) {
+        navLinks.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navLinks.setAttribute('aria-expanded', 'false');
+      } else {
+        navLinks.classList.add('is-open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        navLinks.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Buton tıklama eventi
+    navToggle.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      const newState = !expanded;
-      navToggle.setAttribute('aria-expanded', String(newState));
-      navLinks.setAttribute('aria-expanded', String(newState));
-      
-      // Debug için
-      console.log('Menu toggled:', newState);
+      toggleMenu();
     });
 
     // Dışarı tıklandığında menüyü kapat
-    document.addEventListener('click', (e) => {
-      if (navLinks.getAttribute('aria-expanded') === 'true') {
+    document.addEventListener('click', function(e) {
+      if (navLinks.classList.contains('is-open')) {
         if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+          navLinks.classList.remove('is-open');
           navToggle.setAttribute('aria-expanded', 'false');
           navLinks.setAttribute('aria-expanded', 'false');
         }
       }
     });
 
+    // Menü linklerine tıklandığında menüyü kapat
     navLinks.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('is-open');
         navToggle.setAttribute('aria-expanded', 'false');
         navLinks.setAttribute('aria-expanded', 'false');
       });
