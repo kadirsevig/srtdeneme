@@ -3,10 +3,26 @@ function initApp() {
   const navLinks = document.querySelector('.nav-links');
 
   if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => {
+    navToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', String(!expanded));
-      navLinks.setAttribute('aria-expanded', String(!expanded));
+      const newState = !expanded;
+      navToggle.setAttribute('aria-expanded', String(newState));
+      navLinks.setAttribute('aria-expanded', String(newState));
+      
+      // Debug için
+      console.log('Menu toggled:', newState);
+    });
+
+    // Dışarı tıklandığında menüyü kapat
+    document.addEventListener('click', (e) => {
+      if (navLinks.getAttribute('aria-expanded') === 'true') {
+        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+          navToggle.setAttribute('aria-expanded', 'false');
+          navLinks.setAttribute('aria-expanded', 'false');
+        }
+      }
     });
 
     navLinks.querySelectorAll('a').forEach((link) => {

@@ -210,6 +210,8 @@ a {
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  z-index: 1001;
+  position: relative;
 }
 
 .nav-toggle span {
@@ -2225,7 +2227,7 @@ textarea {
 
   .nav-links {
     position: fixed;
-    top: calc(100% + 8px);
+    top: 80px;
     right: 4%;
     left: 4%;
     flex-direction: column;
@@ -2243,6 +2245,7 @@ textarea {
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    z-index: 1000;
   }
   
   .nav-links li {
@@ -2272,6 +2275,11 @@ textarea {
     transform: scale(1);
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+  }
+  
+  .nav-links[aria-expanded='false'] {
+    pointer-events: none;
   }
 
   .header-cta {
