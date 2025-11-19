@@ -1,0 +1,29 @@
+{
+  "name": "SRT Medikal - Laboratuvar ve Yoğun Bakım Çözümleri",
+  "short_name": "SRT Medikal",
+  "description": "SRT Medikal; hematoloji, kan gazı, biyokimya ve yoğun bakım çözümlerinde yetkili distribütör.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0087d4",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["medical", "business"],
+  "lang": "tr",
+  "dir": "ltr"
+}
+
+

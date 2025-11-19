@@ -50,159 +50,149 @@
 
     <main id="main">
       <section class="hero-home" aria-labelledby="hero-title">
-        <div class="hero-particles">
-          <span class="particle"></span>
-          <span class="particle"></span>
-          <span class="particle"></span>
-          <span class="particle"></span>
-          <span class="particle"></span>
-          <span class="particle"></span>
-          <span class="particle"></span>
-          <span class="particle"></span>
+        <div class="hero-background">
+          <div class="hero-mesh"></div>
+          <div class="hero-gradient-blob blob-1"></div>
+          <div class="hero-gradient-blob blob-2"></div>
+          <div class="hero-gradient-blob blob-3"></div>
         </div>
-        <div class="hero-gradient-orb hero-orb-1"></div>
-        <div class="hero-gradient-orb hero-orb-2"></div>
-        <div class="hero-gradient-orb hero-orb-3"></div>
-        <div class="container hero-inner">
-          <h1 id="hero-title" class="hero-title-text">
-            <span class="hero-title-line">Laboratuvar ve Yoğun Bakım</span>
-            <span class="hero-title-line hero-title-gradient">Çözümlerinde Güvenilir İş Ortağınız</span>
-          </h1>
-          <p id="hero-subtitle" class="hero-subtitle-text">Mindray ve Nova Biomedical cihazlarıyla laboratuvar süreçlerinizi optimize edin. Gelişmiş teknoloji ile sağlık hizmetlerinizi bir üst seviyeye taşıyın.</p>
-        </div>
-        <div class="hero-scroll-indicator">
-          <span>Keşfet</span>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 13L12 18L17 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7 6L12 11L17 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        
+        <div class="hero-container">
+          <div class="hero-content">
+            <h1 id="hero-title" class="hero-title-modern">
+              <span class="title-main">Hematoloji Çözümleri</span>
+            </h1>
+            <p id="hero-subtitle" class="hero-subtitle-modern">
+              Mindray BC-6000 ile 6-diff CBC ve NRBC ölçümü. Yoğun laboratuvarlar için yüksek verimlilik ve güvenilirlik.
+            </p>
+            <div class="hero-actions-modern">
+              <a href="urunler.html" class="btn-modern btn-primary-modern">
+                <span>Ürünleri Keşfet</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="iletisim.html" class="btn-modern btn-outline-modern">
+                <span>Demo Talep Et</span>
+              </a>
+            </div>
+          </div>
+          
+          <div class="hero-visual">
+            <div class="product-cards-stack" id="product-cards-container">
+              <!-- Kartlar JavaScript ile eklenecek -->
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="section" aria-labelledby="integration-title">
         <div class="container">
-          <h2 id="integration-title" class="section-title">Entegrasyon Cihazlarımız</h2>
-          <p class="section-lead">
-            Entegrasyon cihazlarımız hakkında detaylı bilgi için videolarımızı izleyin.
-          </p>
-          <div class="video-gallery-grid">
-            <article class="video-card">
-              <div class="video-card-thumbnail">
+          <div class="integration-header">
+            <h2 id="integration-title" class="integration-title">
+              <span class="title-text">Entegrasyon Cihazlarımız</span>
+            </h2>
+            <p class="integration-lead">
+              Laboratuvar otomasyon çözümlerimiz hakkında detaylı bilgi almak için videolarımızı inceleyebilirsiniz.
+            </p>
+          </div>
+          <div class="video-accordion-list">
+            <article class="video-accordion-item">
+              <button class="video-accordion-button" type="button" aria-expanded="false">
+                <span class="video-accordion-title">Mindray CAL 8000</span>
+                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="video-accordion-content">
                 <video controls preload="metadata">
                   <source src="entegrasyon/Mindray%20CAL%208000_5.mp4" type="video/mp4">
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>
-                <div class="video-play-overlay">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="40" r="40" fill="rgba(0, 135, 212, 0.9)"/>
-                    <path d="M32 24L56 40L32 56V24Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-card-info">
-                <h3>Mindray CAL 8000</h3>
               </div>
             </article>
-            <article class="video-card">
-              <div class="video-card-thumbnail">
+            <article class="video-accordion-item">
+              <button class="video-accordion-button" type="button" aria-expanded="false">
+                <span class="video-accordion-title">Mindray SAL Series</span>
+                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="video-accordion-content">
                 <video controls preload="metadata">
                   <source src="entegrasyon/Mindray%20SAL%20Series%20Introduction_2.mp4" type="video/mp4">
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>
-                <div class="video-play-overlay">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="40" r="40" fill="rgba(0, 135, 212, 0.9)"/>
-                    <path d="M32 24L56 40L32 56V24Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-card-info">
-                <h3>Mindray SAL Series</h3>
               </div>
             </article>
-            <article class="video-card">
-              <div class="video-card-thumbnail">
+            <article class="video-accordion-item">
+              <button class="video-accordion-button" type="button" aria-expanded="false">
+                <span class="video-accordion-title">SAL 9000</span>
+                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="video-accordion-content">
                 <video controls preload="metadata">
                   <source src="entegrasyon/SAL%209000%20Integrated%20Chemistry%20and%20Immunoassay%20System.mp4" type="video/mp4">
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>
-                <div class="video-play-overlay">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="40" r="40" fill="rgba(0, 135, 212, 0.9)"/>
-                    <path d="M32 24L56 40L32 56V24Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-card-info">
-                <h3>SAL 9000</h3>
               </div>
             </article>
-            <article class="video-card">
-              <div class="video-card-thumbnail">
-                <video controls preload="metadata" poster="">
+            <article class="video-accordion-item">
+              <button class="video-accordion-button" type="button" aria-expanded="false">
+                <span class="video-accordion-title">M1000 Integrated System</span>
+                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="video-accordion-content">
+                <video controls preload="metadata">
                   <source src="entegrasyon/M1000%20Integrated%20System_%20Expanding%20your%20possibilities%20with%20just%204.5m%C2%B2.mp4" type="video/mp4">
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>
-                <div class="video-play-overlay">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="40" r="40" fill="rgba(0, 135, 212, 0.9)"/>
-                    <path d="M32 24L56 40L32 56V24Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-card-info">
-                <h3>M1000 Integrated System</h3>
               </div>
             </article>
-            <article class="video-card">
-              <div class="video-card-thumbnail">
+            <article class="video-accordion-item">
+              <button class="video-accordion-button" type="button" aria-expanded="false">
+                <span class="video-accordion-title">Mindray MT8000</span>
+                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="video-accordion-content">
                 <video controls preload="metadata">
                   <source src="entegrasyon/MT8000%20Mindray_%20Automatizaci%C3%B3n%20Total%20para%20Laboratorios%20Inteligentes%20_%20Tecnolog%C3%ADa%20M%C3%A9dica%20Avanzada.mp4" type="video/mp4">
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>
-                <div class="video-play-overlay">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="40" r="40" fill="rgba(0, 135, 212, 0.9)"/>
-                    <path d="M32 24L56 40L32 56V24Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-card-info">
-                <h3>Mindray MT8000</h3>
               </div>
             </article>
-            <article class="video-card">
-              <div class="video-card-thumbnail">
+            <article class="video-accordion-item">
+              <button class="video-accordion-button" type="button" aria-expanded="false">
+                <span class="video-accordion-title">Mindray CL 2600i</span>
+                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="video-accordion-content">
                 <video controls preload="metadata">
                   <source src="entegrasyon/Mindray%20CL%202600i.mp4" type="video/mp4">
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>
-                <div class="video-play-overlay">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="40" r="40" fill="rgba(0, 135, 212, 0.9)"/>
-                    <path d="M32 24L56 40L32 56V24Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-card-info">
-                <h3>Mindray CL 2600i</h3>
               </div>
             </article>
-            <article class="video-card">
-              <div class="video-card-thumbnail">
+            <article class="video-accordion-item">
+              <button class="video-accordion-button" type="button" aria-expanded="false">
+                <span class="video-accordion-title">CAL 6000</span>
+                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="video-accordion-content">
                 <video controls preload="metadata">
                   <source src="entegrasyon/CAL%206000%20Bench-top%20Cellular%20Analysis%20Line%20-%20Hematology%20Automation%20within%20Reach.mp4" type="video/mp4">
                   Tarayıcınız video oynatmayı desteklemiyor.
                 </video>
-                <div class="video-play-overlay">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="40" r="40" fill="rgba(0, 135, 212, 0.9)"/>
-                    <path d="M32 24L56 40L32 56V24Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-card-info">
-                <h3>CAL 6000</h3>
               </div>
             </article>
           </div>
@@ -211,11 +201,14 @@
 
       <section class="section" aria-labelledby="partners-title">
         <div class="container">
-          <h2 id="partners-title" class="section-title">İş Ortaklarımız</h2>
-          <p class="section-lead">
-            Global üretici markalarla iş birliği yaparak klinik süreçlerinizde güvenilir ve yenilikçi
-            çözümler sunuyoruz.
-          </p>
+          <div class="partners-header">
+            <h2 id="partners-title" class="partners-title">
+              <span class="title-text">İş Ortaklarımız</span>
+            </h2>
+            <p class="partners-lead">
+              Global üretici markalarla iş birliği yaparak klinik süreçlerinizde güvenilir ve yenilikçi çözümler sunuyoruz.
+            </p>
+          </div>
           <div class="partner-logos">
             <div class="partner-logo-card">
               <img
@@ -247,10 +240,14 @@
 
       <section class="section section-light" aria-labelledby="support-title">
         <div class="container">
-          <h2 id="support-title" class="section-title">SRT Medikal Avantajları</h2>
-          <p class="section-lead">
-            Satış sonrası süreçlerinizde hız ve güvenilirlik sağlayan hizmet yaklaşımımız.
-          </p>
+          <div class="advantages-header">
+            <h2 id="support-title" class="advantages-title">
+              <span class="title-text">SRT Medikal Avantajları</span>
+            </h2>
+            <p class="advantages-lead">
+              Satış sonrası süreçlerinizde hız ve güvenilirlik sağlayan hizmet yaklaşımımız.
+            </p>
+          </div>
           <div class="info-columns">
             <article class="info-card">
               <div class="info-card-icon">
