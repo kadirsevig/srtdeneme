@@ -1016,6 +1016,9 @@ a {
   align-items: center;
   justify-content: center;
   perspective: 1200px;
+  visibility: visible;
+  opacity: 1;
+  min-height: 400px;
 }
 
 @media (max-width: 1024px) {
@@ -1054,6 +1057,8 @@ a {
   transform-style: preserve-3d;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  opacity: 1;
+  visibility: visible;
 }
 
 .floating-card::before {
@@ -3391,6 +3396,14 @@ textarea {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s ease;
+}
+
+.video-accordion-content[hidden] {
+  display: none;
+}
+
+.video-accordion-content:not([hidden]) {
+  display: block;
 }
 
 .video-accordion-content video {

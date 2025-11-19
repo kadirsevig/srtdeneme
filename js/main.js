@@ -1,3 +1,8 @@
+// Global değişkenler - en üstte tanımlanmalı
+let heroSlideshowInterval = null;
+let heroContent = null; // Global heroContent
+let updateHeroContent = null; // Global updateHeroContent
+
 function initApp() {
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
@@ -384,8 +389,6 @@ function getDisplayName(provinceName) {
   return provinceName;
 }
 
-let heroSlideshowInterval = null;
-
 function initHeroSlideshow() {
   // Zaten çalışıyorsa tekrar başlatma
   if (heroSlideshowInterval !== null) {
@@ -406,7 +409,7 @@ function initHeroSlideshow() {
     return;
   }
 
-  const heroContent = [
+  heroContent = [
     {
       image: 'https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/hematology/medium-test-volume/bc-6000/glp18-s3.jpg',
       title: 'Hematoloji Çözümleri',
@@ -486,7 +489,7 @@ function initHeroSlideshow() {
   window.carouselRotateFn = null;
   let isTransitioning = false; // Geçiş sırasında çakışmayı önlemek için
 
-  const updateHeroContent = (targetIndex = null) => {
+  updateHeroContent = (targetIndex = null) => {
     if (!heroTitle || !heroSubtitle || isTransitioning) return;
     
     // Eğer targetIndex belirtilmişse onu kullan, yoksa heroIndex'i artır
@@ -553,6 +556,15 @@ function initHeroSlideshow() {
         window.setCarouselActiveIndex(0);
       }
     }, 1000);
+    
+    // Kartları oluştur - heroContent hazır olduktan sonra
+    setTimeout(() => {
+      if (window.createProductCards) {
+        window.createProductCards();
+      } else {
+        console.error('createProductCards fonksiyonu bulunamadı');
+      }
+    }, 800);
     
     // Slideshow'u başlat - tek merkezi kontrol
     setTimeout(() => {
@@ -704,11 +716,20 @@ function initHeroSlideshow() {
 
   // Parallax scrolling - kaldırıldı, hero sabit kalacak
 
-  // Ürün kartlarını elips şeklinde oluştur
-  function createProductCards() {
+  // Ürün kartlarını elips şeklinde oluştur - global fonksiyon
+  window.createProductCards = function() {
     const container = document.getElementById('product-cards-container');
-    if (!container) return;
+    if (!container) {
+      console.warn('Product cards container bulunamadı');
+      return;
+    }
 
+    if (!heroContent || heroContent.length === 0) {
+      console.warn('Hero content bulunamadı');
+      return;
+    }
+
+    console.log('Kartlar oluşturuluyor...', heroContent.length, 'kart');
     const totalCards = heroContent.length;
 
     heroContent.forEach((product, index) => {
@@ -729,18 +750,27 @@ function initHeroSlideshow() {
         </div>
       `;
       
+      // Kartı görünür yap
+      card.style.opacity = '1';
+      card.style.visibility = 'visible';
+      card.style.display = 'flex';
+      
       // Resim yükleme kontrolü
       const img = card.querySelector('.card-image');
-      img.addEventListener('error', function() {
-        console.warn(`Resim yüklenemedi: ${product.image} - ${product.title}`);
-        // Alternatif resim dene
-        if (this.src !== 'https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg') {
-          this.src = 'https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg';
-        }
-      });
+      if (img) {
+        img.addEventListener('error', function() {
+          console.warn(`Resim yüklenemedi: ${product.image} - ${product.title}`);
+          // Alternatif resim dene
+          if (this.src !== 'https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg') {
+            this.src = 'https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg';
+          }
+        });
+      }
 
       container.appendChild(card);
     });
+
+    console.log('Kartlar oluşturuldu, toplam:', container.querySelectorAll('.product-card').length);
 
     // Modern Card Stack - kartlar üst üste, en üstteki öne çıkar
     let currentActiveIndex = 0;
@@ -756,6 +786,11 @@ function initHeroSlideshow() {
     function updateCardStack() {
       const cards = container.querySelectorAll('.product-card');
       
+      if (cards.length === 0) {
+        console.warn('Kartlar bulunamadı');
+        return;
+      }
+      
       cards.forEach((card, index) => {
         const distance = Math.abs(index - currentActiveIndex);
         const isActive = index === currentActiveIndex;
@@ -764,12 +799,15 @@ function initHeroSlideshow() {
         // Sadece yakındaki kartları göster
         if (distance > maxVisibleCards) {
           card.style.opacity = '0';
+          card.style.visibility = 'hidden';
           card.style.pointerEvents = 'none';
           card.style.transform = 'translateY(100px) scale(0.8)';
           return;
         }
         
         card.style.opacity = '1';
+        card.style.visibility = 'visible';
+        card.style.display = 'flex';
         card.style.pointerEvents = 'auto';
         
         // Z-index: aktif kart en üstte
@@ -801,6 +839,7 @@ function initHeroSlideshow() {
     
     // İlk pozisyonu ayarla
     updateCardStack();
+    console.log('Kart stack güncellendi');
     
     // Kart tıklama - hero slideshow ile senkronize
     const cards = container.querySelectorAll('.product-card');
@@ -815,7 +854,9 @@ function initHeroSlideshow() {
         // Kartı ve hero içeriğini güncelle
         currentActiveIndex = index;
         updateCardStack();
-        updateHeroContent(index);
+        if (updateHeroContent) {
+          updateHeroContent(index);
+        }
         
         // Interval'ı yeniden başlat
         setTimeout(() => {
@@ -829,10 +870,6 @@ function initHeroSlideshow() {
     });
   }
 
-  // Sayfa yüklendiğinde başlat
-  setTimeout(() => {
-    createProductCards();
-  }, 500);
 }
 
 function initVideoAccordion() {
@@ -841,18 +878,24 @@ function initVideoAccordion() {
   accordionButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const isExpanded = button.getAttribute('aria-expanded') === 'true';
-      const content = button.nextElementSibling;
-      const video = content?.querySelector('video');
+      const item = button.closest('.video-accordion-item');
+      const content = item ? item.querySelector('.video-accordion-content') : null;
+      const video = content ? content.querySelector('video') : null;
       
       // Tüm accordion'ları kapat
       accordionButtons.forEach((btn) => {
         if (btn !== button) {
           btn.setAttribute('aria-expanded', 'false');
-          const otherContent = btn.nextElementSibling;
-          const otherVideo = otherContent?.querySelector('video');
-          if (otherVideo) {
-            otherVideo.pause();
-            otherVideo.currentTime = 0;
+          const otherItem = btn.closest('.video-accordion-item');
+          const otherContent = otherItem ? otherItem.querySelector('.video-accordion-content') : null;
+          if (otherContent) {
+            otherContent.hidden = true;
+            otherContent.style.maxHeight = '0';
+            const otherVideo = otherContent.querySelector('video');
+            if (otherVideo) {
+              otherVideo.pause();
+              otherVideo.currentTime = 0;
+            }
           }
         }
       });
@@ -860,12 +903,20 @@ function initVideoAccordion() {
       // Mevcut accordion'u aç/kapat
       if (isExpanded) {
         button.setAttribute('aria-expanded', 'false');
+        if (content) {
+          content.hidden = true;
+          content.style.maxHeight = '0';
+        }
         if (video) {
           video.pause();
           video.currentTime = 0;
         }
       } else {
         button.setAttribute('aria-expanded', 'true');
+        if (content) {
+          content.hidden = false;
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
       }
     });
   });
