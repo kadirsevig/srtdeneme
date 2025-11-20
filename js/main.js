@@ -87,7 +87,10 @@ function initApp() {
   });
 
   renderTurkeyMap();
-  initHeroSlideshow();
+  // Hero section sadece anasayfada var
+  if (document.querySelector('.hero-home')) {
+    initHeroSlideshow();
+  }
   initVideoModal();
   initVideoAccordion();
 }
@@ -108,7 +111,9 @@ window.addEventListener('load', () => {
     // Eğer başlık hala varsayılan metindeyse slideshow çalışmamış demektir
     const defaultTitle = 'Laboratuvar ve Yoğun Bakım Çözümlerinde Güvenilir İş Ortağınız';
     if (heroTitle.textContent === defaultTitle) {
-      initHeroSlideshow();
+      if (document.querySelector('.hero-home')) {
+        initHeroSlideshow();
+      }
     }
   }
 });
@@ -397,7 +402,7 @@ function initHeroSlideshow() {
 
   const hero = document.querySelector('.hero-home');
   if (!hero) {
-    console.warn('Hero section bulunamadı');
+    // Hero section yoksa sessizce çık (normal durum)
     return;
   }
 
@@ -405,7 +410,7 @@ function initHeroSlideshow() {
   const heroSubtitle = document.getElementById('hero-subtitle');
   
   if (!heroTitle || !heroSubtitle) {
-    console.warn('Hero title veya subtitle bulunamadı');
+    // Hero title/subtitle yoksa sessizce çık
     return;
   }
 
