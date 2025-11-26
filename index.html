@@ -15,6 +15,7 @@
     />
     <link rel="stylesheet" href="css/styles.css?v=4.4" />
     <script src="js/main.js?v=4.4" defer></script>
+    <script src="js/home-news.js" defer></script>
     <noscript>
       <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
@@ -49,6 +50,7 @@
             <li><a href="kurumsal.html" data-hero-image="1">Kurumsal</a></li>
             <li><a href="urunler.html" data-hero-image="2">Ürünler</a></li>
             <li><a href="referanslar.html" data-hero-image="3">Referanslar</a></li>
+            <li><a href="haberler.html">Haberler</a></li>
             <li><a href="iletisim.html" data-hero-image="4">İletişim</a></li>
           </ul>
         </nav>
@@ -206,6 +208,26 @@
         </div>
       </section>
 
+      <section class="section" aria-labelledby="latest-news-title">
+        <div class="container">
+          <div class="news-header-home">
+            <h2 id="latest-news-title" class="news-title-home">
+              <span class="title-text">Son Haberler</span>
+            </h2>
+            <p class="news-lead-home">
+              SRT Medikal'den güncel haberler, etkinlikler ve laboratuvar çözümlerindeki gelişmeler.
+            </p>
+          </div>
+          <div id="latest-news-container" class="latest-news-grid"></div>
+          <div id="latest-news-loading" class="news-loading-home" style="display: none;">
+            <p>Haberler yükleniyor...</p>
+          </div>
+          <div id="latest-news-empty" class="news-empty-home" style="display: none;">
+            <p>Henüz haber bulunmamaktadır.</p>
+          </div>
+        </div>
+      </section>
+
       <section class="section" aria-labelledby="partners-title">
         <div class="container">
           <div class="partners-header">
@@ -324,6 +346,7 @@
               <li><a href="kurumsal.html">Kurumsal</a></li>
               <li><a href="urunler.html">Ürünlerimiz</a></li>
               <li><a href="referanslar.html">Referanslarımız</a></li>
+              <li><a href="haberler.html">Haberler</a></li>
               <li><a href="iletisim.html">İletişim</a></li>
             </ul>
           </div>

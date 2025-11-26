@@ -65,10 +65,12 @@ class BreadcrumbNavigation {
   }
 
   getBreadcrumbData(currentPage) {
+    // Ana sayfa ve haberler sayfasında breadcrumb gösterme
+    if (currentPage === 'index.html' || currentPage === 'haberler.html') {
+      return null;
+    }
+    
     const breadcrumbs = {
-      'index.html': [
-        { title: 'Anasayfa', url: 'index.html' }
-      ],
       'kurumsal.html': [
         { title: 'Anasayfa', url: 'index.html' },
         { title: 'Kurumsal', url: 'kurumsal.html' }
@@ -114,6 +116,10 @@ class BreadcrumbNavigation {
       'iletisim.html': [
         { title: 'Anasayfa', url: 'index.html' },
         { title: 'İletişim', url: 'iletisim.html' }
+      ],
+      'haberler.html': [
+        { title: 'Anasayfa', url: 'index.html' },
+        { title: 'Haberler', url: 'haberler.html' }
       ]
     };
 

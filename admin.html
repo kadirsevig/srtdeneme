@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <title>Admin Paneli | Haber Yönetimi - SRT Medikal</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=4.4" />
+  <style>
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .admin-header {
+      background: var(--blue);
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .login-form {
+      max-width: 400px;
+      margin: 5rem auto;
+      padding: 2rem;
+      background: var(--gray-100);
+      border-radius: var(--radius-md);
+    }
+    .login-form h2 {
+      margin-bottom: 1.5rem;
+      color: var(--gray-800);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group input[type="file"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .form-group input[type="file"] {
+      cursor: pointer;
+      background: white;
+    }
+    .form-group input[type="file"]:hover {
+      border-color: var(--blue);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
+    .btn-danger {
+      background: var(--red);
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-danger:hover {
+      background: var(--red-dark);
+    }
+    .btn-secondary {
+      background: var(--gray-600);
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-secondary:hover {
+      background: var(--gray-800);
+    }
+    .news-list {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .news-item {
+      background: white;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .news-item-image {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      background: var(--gray-100);
+    }
+    .news-item-content {
+      flex: 1;
+    }
+    .news-item-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--gray-800);
+    }
+    .news-item-date {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .news-item-excerpt {
+      color: var(--gray-600);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .news-item-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .add-news-form {
+      background: white;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .add-news-form h2 {
+      margin-bottom: 1.5rem;
+      color: var(--gray-800);
+    }
+    .images-gallery {
+      margin-top: 1rem;
+    }
+    .image-preview-item {
+      position: relative;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+    .image-preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .image-preview-item .image-remove-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(229, 37, 42, 0.9);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: background var(--transition);
+    }
+    .image-preview-item .image-remove-btn:hover {
+      background: var(--red);
+    }
+    .image-preview-item .image-index {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      background: rgba(0, 135, 212, 0.9);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .alert {
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+    }
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-section" class="admin-container">
+    <div class="login-form">
+      <h2>Admin Girişi</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="password">Şifre</label>
+          <input type="password" id="password" required />
+        </div>
+        <button type="submit" class="btn-primary">Giriş Yap</button>
+        <div id="login-error" class="alert alert-error hidden"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="admin-section" class="admin-container hidden">
+    <div class="admin-header">
+      <div>
+        <h1>Haber Yönetimi</h1>
+        <p>Haberlerinizi buradan ekleyebilir, düzenleyebilir ve silebilirsiniz.</p>
+      </div>
+      <button class="btn-secondary" onclick="logout()">Çıkış Yap</button>
+    </div>
+
+    <div id="alert-container"></div>
+
+    <div class="add-news-form">
+      <h2 id="form-title">Yeni Haber Ekle</h2>
+      <form id="news-form">
+        <input type="hidden" id="news-id" />
+        
+        <div class="form-group">
+          <label for="news-title">Başlık *</label>
+          <input type="text" id="news-title" required />
+        </div>
+
+        <div class="form-group">
+          <label for="news-image">Resim Seç <span id="image-required">*</span> (En fazla 5 resim)</label>
+          <input type="file" id="news-image" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" multiple />
+          <small style="display: block; margin-top: 0.5rem; color: var(--gray-600);">
+            JPG, PNG, GIF veya WebP formatında resim seçebilirsiniz (Max 2MB/resim)
+            <br><span id="image-note" style="display: none; color: var(--gray-600);">Düzenleme modunda: Yeni resim seçmezseniz mevcut resimler korunacaktır.</span>
+          </small>
+          
+          <!-- Resim Galerisi -->
+          <div id="images-gallery" class="images-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;"></div>
+          
+          <div id="image-loading" class="hidden" style="margin-top: 0.5rem; color: var(--blue);">
+            Resim(ler) yükleniyor...
+          </div>
+          <input type="hidden" id="news-images-data" />
+        </div>
+
+        <div class="form-group">
+          <label for="news-date">Tarih *</label>
+          <input type="date" id="news-date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="news-excerpt">Kısa Açıklama *</label>
+          <textarea id="news-excerpt" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="news-content">İçerik (Detaylı) *</label>
+          <textarea id="news-content" required></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+          <button type="submit" class="btn-primary" id="submit-btn">Haber Ekle</button>
+          <button type="button" class="btn-secondary" id="cancel-btn" onclick="cancelEdit()" style="display: none;">İptal</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="news-list" id="news-list">
+      <p>Haberler yükleniyor...</p>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
+
