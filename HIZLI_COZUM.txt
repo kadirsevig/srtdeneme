@@ -1,0 +1,34 @@
+════════════════════════════════════════════════════════════════
+  HABERLER TÜM CİHAZLARDA GÖRÜNSÜN - HIZLI ÇÖZÜM
+════════════════════════════════════════════════════════════════
+
+SORUN: Haberler sadece sizin bilgisayarınızda görünüyor, mobilde görünmüyor.
+
+ÇÖZÜM: SADECE 2 DOSYA YÜKLEYECEKSINIZ (BİR KEZ, SONRA OTOMATIK)
+
+════════════════════════════════════════════════════════════════
+
+📋 ADIMLAR:
+
+1️⃣  api/save-news.php dosyasını hosting'inize yükleyin
+    (FTP veya cPanel File Manager ile)
+
+2️⃣  data/ klasörüne yazma izni verin (CHMOD 755)
+
+════════════════════════════════════════════════════════════════
+
+✅ SONUÇ:
+
+- Haber eklediğinizde OTOMATIK olarak kaydedilecek
+- TÜM cihazlarda (mobil, tablet, PC) anında görünecek
+- Başka bir işlem yapmanıza GEREK YOK!
+
+════════════════════════════════════════════════════════════════
+
+⚠️ EĞER PHP ÇALIŞMIYORSA:
+
+Alternatif: Her haber ekledikten sonra otomatik indirilen 
+news.json dosyasını hosting'inizdeki data/news.json yerine yükleyin.
+
+════════════════════════════════════════════════════════════════
+

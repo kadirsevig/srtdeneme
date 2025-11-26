@@ -1,0 +1,47 @@
+╔══════════════════════════════════════════════════════════════╗
+║          HABER SİSTEMİ - OTOMATIK KAYIT KURULUMU            ║
+╚══════════════════════════════════════════════════════════════╝
+
+SORUN: Haberler sadece localStorage'da, mobilde görünmüyor.
+
+ÇÖZÜM: PHP script ile otomatik kayıt (SADECE BİR KEZ KURULUM)
+
+═══════════════════════════════════════════════════════════════
+
+📁 ADIM 1: PHP Dosyasını Yükle (SADECE BİR KEZ)
+
+1. api/save-news.php dosyasını hosting'inize yükleyin
+   - FTP veya cPanel File Manager ile
+   - Dosya yolu: yourdomain.com/api/save-news.php
+
+2. data/ klasörüne yazma izni verin
+   - cPanel'de: data/ klasörüne sağ tık > Change Permissions
+   - CHMOD: 755 veya 777
+   - data/news.json dosyası: CHMOD 644 veya 666
+
+═══════════════════════════════════════════════════════════════
+
+✅ ADIM 2: Test Et
+
+1. yourdomain.com/api/save-news.php adresine gidin
+2. Eğer JSON görüyorsanız (boş array olsa bile) ✅ ÇALIŞIYOR
+3. Haber ekleyin - Artık otomatik kaydedilecek!
+
+═══════════════════════════════════════════════════════════════
+
+🎉 SONUÇ:
+
+✅ Haber eklediğinizde otomatik olarak data/news.json'a kaydedilir
+✅ Tüm cihazlarda (mobil, tablet, masaüstü) anında görünür
+✅ Başka bir işlem yapmanıza gerek YOK!
+
+═══════════════════════════════════════════════════════════════
+
+⚠️ EĞER PHP ÇALIŞMIYORSA:
+
+Alternatif: Her haber ekledikten sonra admin panelde
+"JSON İndir" butonuna tıklayıp, indirilen news.json dosyasını
+hosting'inizdeki data/news.json yerine yükleyin.
+
+═══════════════════════════════════════════════════════════════
+

@@ -408,8 +408,14 @@ class NewsAdmin {
         console.error('HATA: Haberler kaydedilemedi!');
       }
       
-      // Şimdi otomatik olarak sunucuya kaydet (tüm cihazlar için)
-      await this.saveToServer(news);
+      // Önce sunucuya kaydetmeyi dene (PHP script varsa otomatik çalışır)
+      const serverSaved = await this.saveToServer(news);
+      
+      // Eğer PHP script yoksa, JSON dosyasını otomatik indir
+      // (Kullanıcı bunu hosting'e yükleyecek - ama PHP script bir kez yüklenirse buna gerek kalmaz)
+      if (!serverSaved) {
+        this.autoDownloadJSON(news);
+      }
       
     } catch (error) {
       console.error('Haberler kaydedilirken hata:', error);
@@ -417,11 +423,33 @@ class NewsAdmin {
     }
   }
 
+  autoDownloadJSON(news) {
+    // Otomatik olarak JSON dosyasını indir
+    const jsonData = {
+      news: news
+    };
+
+    const jsonString = JSON.stringify(jsonData, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'news.json';
+    
+    // Sessizce indir (kullanıcıya rahatsızlık vermeden)
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    // Kullanıcıya bilgi ver
+    this.showAlert(`✅ Haber kaydedildi! JSON dosyası otomatik indirildi. Bu dosyayı hosting'inizdeki "data/news.json" dosyasının yerine yükleyin. Böylece tüm cihazlarda görünecek. (${news.length} haber)`, 'success');
+  }
+
   async saveToServer(news) {
     // file:// protokolünde çalışmaz
     if (window.location.protocol === 'file:') {
-      console.log('file:// protokolü tespit edildi, sunucuya kaydedilemedi');
-      this.showAlert('⚠️ Yerel dosya sistemi kullanılıyor. Sunucuda otomatik kayıt çalışmayacak. Haberler sadece bu tarayıcıda görünecek.', 'error');
       return;
     }
 
@@ -451,22 +479,18 @@ class NewsAdmin {
           if (response.ok) {
             const result = await response.json();
             console.log('✅ Haberler sunucuya kaydedildi:', result);
-            this.showAlert(`✅ Haberler otomatik olarak kaydedildi! (${news.length} haber) Tüm cihazlarda görünecek.`, 'success');
-            return;
+            this.showAlert(`✅ Haberler otomatik olarak sunucuya kaydedildi! Tüm cihazlarda görünecek.`, 'success');
+            return true;
           }
         } catch (err) {
-          console.log(`${endpoint} deneniyor... Başarısız:`, err.message);
           continue;
         }
       }
-
-      // Eğer tüm endpoint'ler başarısız olduysa
-      console.warn('⚠️ Sunucuya kaydedilemedi, sadece localStorage kullanılıyor');
-      this.showAlert('⚠️ Haberler sadece bu tarayıcıda kaydedildi. Tüm cihazlarda görünmesi için "JSON İndir" butonunu kullanın.', 'error');
       
+      return false;
     } catch (error) {
       console.error('Sunucuya kaydetme hatası:', error);
-      this.showAlert('⚠️ Haberler sadece bu tarayıcıda kaydedildi. Tüm cihazlarda görünmesi için "JSON İndir" butonunu kullanın.', 'error');
+      return false;
     }
   }
 
