@@ -251,7 +251,12 @@
         <h1>Haber Yönetimi</h1>
         <p>Haberlerinizi buradan ekleyebilir, düzenleyebilir ve silebilirsiniz.</p>
       </div>
-      <button class="btn-secondary" onclick="logout()">Çıkış Yap</button>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn-secondary" onclick="admin.exportToJSON()" style="background: #28a745;">📥 JSON İndir</button>
+        <button class="btn-secondary" onclick="document.getElementById('import-json-input').click()" style="background: #17a2b8;">📤 JSON Yükle</button>
+        <input type="file" id="import-json-input" accept=".json" style="display: none;" onchange="admin.importFromJSON(event)" />
+        <button class="btn-secondary" onclick="logout()">Çıkış Yap</button>
+      </div>
     </div>
 
     <div id="alert-container"></div>

@@ -388,8 +388,9 @@ class NewsAdmin {
     return [];
   }
 
-  saveAllNews(news) {
+  async saveAllNews(news) {
     try {
+      // Önce localStorage'a kaydet (hızlı erişim için)
       const newsString = JSON.stringify(news);
       localStorage.setItem(this.storageKey, newsString);
       console.log('Haberler localStorage\'a kaydedildi:', {
@@ -406,20 +407,67 @@ class NewsAdmin {
       } else {
         console.error('HATA: Haberler kaydedilemedi!');
       }
+      
+      // Şimdi otomatik olarak sunucuya kaydet (tüm cihazlar için)
+      await this.saveToServer(news);
+      
     } catch (error) {
       console.error('Haberler kaydedilirken hata:', error);
       alert('Haberler kaydedilirken bir hata oluştu: ' + error.message);
     }
-    
-    // JSON dosyasına da kaydetmek için export fonksiyonu (manuel)
-    this.updateJSONFile(news);
   }
 
-  updateJSONFile(news) {
-    // Bu fonksiyon kullanıcıya JSON dosyasını indirme seçeneği sunar
-    // Çünkü tarayıcıdan dosyaya yazamayız
-    window.newsDataForExport = { news: news };
-    console.log('Haberler güncellendi. JSON export için: JSON.stringify(window.newsDataForExport)');
+  async saveToServer(news) {
+    // file:// protokolünde çalışmaz
+    if (window.location.protocol === 'file:') {
+      console.log('file:// protokolü tespit edildi, sunucuya kaydedilemedi');
+      this.showAlert('⚠️ Yerel dosya sistemi kullanılıyor. Sunucuda otomatik kayıt çalışmayacak. Haberler sadece bu tarayıcıda görünecek.', 'error');
+      return;
+    }
+
+    try {
+      const jsonData = {
+        news: news
+      };
+
+      // API endpoint'ini dene (farklı yollar)
+      let response;
+      const endpoints = [
+        'api/save-news.php',
+        '/api/save-news.php',
+        './api/save-news.php'
+      ];
+
+      for (const endpoint of endpoints) {
+        try {
+          response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            console.log('✅ Haberler sunucuya kaydedildi:', result);
+            this.showAlert(`✅ Haberler otomatik olarak kaydedildi! (${news.length} haber) Tüm cihazlarda görünecek.`, 'success');
+            return;
+          }
+        } catch (err) {
+          console.log(`${endpoint} deneniyor... Başarısız:`, err.message);
+          continue;
+        }
+      }
+
+      // Eğer tüm endpoint'ler başarısız olduysa
+      console.warn('⚠️ Sunucuya kaydedilemedi, sadece localStorage kullanılıyor');
+      this.showAlert('⚠️ Haberler sadece bu tarayıcıda kaydedildi. Tüm cihazlarda görünmesi için "JSON İndir" butonunu kullanın.', 'error');
+      
+    } catch (error) {
+      console.error('Sunucuya kaydetme hatası:', error);
+      this.showAlert('⚠️ Haberler sadece bu tarayıcıda kaydedildi. Tüm cihazlarda görünmesi için "JSON İndir" butonunu kullanın.', 'error');
+    }
   }
 
   loadNews() {
@@ -555,6 +603,83 @@ class NewsAdmin {
         container.style.display = 'none';
       }
     }, 5000);
+  }
+
+  // JSON Export - Haberleri JSON dosyası olarak indir
+  exportToJSON() {
+    const allNews = this.getAllNews();
+    if (allNews.length === 0) {
+      this.showAlert('İndirilecek haber bulunamadı!', 'error');
+      return;
+    }
+
+    const jsonData = {
+      news: allNews
+    };
+
+    const jsonString = JSON.stringify(jsonData, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'news.json';
+    link.click();
+    URL.revokeObjectURL(url);
+
+    this.showAlert(`✅ ${allNews.length} haber JSON dosyası olarak indirildi! Şimdi bu dosyayı hosting'inizdeki "data/news.json" dosyasının yerine yükleyin. Böylece tüm cihazlarda görünecektir.`, 'success');
+  }
+
+  // JSON Import - JSON dosyasından haberleri yükle
+  importFromJSON(event) {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    if (!file.name.endsWith('.json')) {
+      this.showAlert('Lütfen geçerli bir JSON dosyası seçin!', 'error');
+      event.target.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const jsonData = JSON.parse(e.target.result);
+        
+        if (!jsonData.news || !Array.isArray(jsonData.news)) {
+          this.showAlert('JSON dosyası geçersiz format! "news" anahtarı bir array olmalı.', 'error');
+          event.target.value = '';
+          return;
+        }
+
+        // Mevcut haberleri JSON'dakilerle birleştir (ID'ye göre çakışma kontrolü)
+        const currentNews = this.getAllNews();
+        const existingIds = new Set(currentNews.map(n => n.id));
+        
+        const newNews = jsonData.news.filter(n => !existingIds.has(n.id));
+        const updatedNews = [...currentNews, ...newNews];
+
+        // localStorage'a kaydet
+        this.saveAllNews(updatedNews);
+        
+        // Haberleri yeniden yükle
+        this.loadNews();
+        
+        this.showAlert(`✅ ${newNews.length} yeni haber yüklendi! Toplam ${updatedNews.length} haber.`, 'success');
+        event.target.value = '';
+      } catch (error) {
+        this.showAlert('JSON dosyası okunamadı: ' + error.message, 'error');
+        event.target.value = '';
+      }
+    };
+
+    reader.onerror = () => {
+      this.showAlert('Dosya okunurken hata oluştu!', 'error');
+      event.target.value = '';
+    };
+
+    reader.readAsText(file);
   }
 }
 

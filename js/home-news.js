@@ -5,8 +5,42 @@ class HomeNews {
     this.init();
   }
 
-  init() {
+  async init() {
+    // Önce JSON'dan yükle, sonra localStorage'dan
+    await this.loadFromJSON();
     this.loadLatestNews();
+  }
+
+  async loadFromJSON() {
+    if (window.location.protocol === 'file:') {
+      return;
+    }
+    
+    try {
+      let response = await fetch('data/news.json');
+      if (!response.ok) {
+        response = await fetch('/data/news.json');
+      }
+      if (!response.ok) {
+        response = await fetch('./data/news.json');
+      }
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.news && Array.isArray(data.news) && data.news.length > 0) {
+          const localNews = this.getAllNews();
+          const jsonIds = new Set(data.news.map(n => n.id));
+          const localOnlyNews = localNews.filter(n => !jsonIds.has(n.id));
+          const combinedNews = [...data.news, ...localOnlyNews];
+          
+          if (combinedNews.length > 0) {
+            localStorage.setItem(this.storageKey, JSON.stringify(combinedNews));
+          }
+        }
+      }
+    } catch (error) {
+      console.log('JSON yüklenemedi:', error.message);
+    }
   }
 
   getAllNews() {

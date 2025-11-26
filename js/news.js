@@ -25,21 +25,48 @@ class NewsDisplay {
     }
     
     try {
-      const response = await fetch('data/news.json');
+      // Farklı yolları dene
+      let response = await fetch('data/news.json');
+      if (!response.ok) {
+        response = await fetch('/data/news.json');
+      }
+      if (!response.ok) {
+        response = await fetch('./data/news.json');
+      }
+      
       if (response.ok) {
         const data = await response.json();
         if (data.news && Array.isArray(data.news) && data.news.length > 0) {
-          const currentNews = this.getAllNews();
-          // Eğer localStorage boşsa veya JSON'daki haberler daha fazlaysa, JSON'dan yükle
-          if (currentNews.length === 0 || data.news.length > currentNews.length) {
-            localStorage.setItem(this.storageKey, JSON.stringify(data.news));
+          // JSON'dan gelen haberleri öncelikli olarak kullan
+          // localStorage ile birleştir (JSON öncelikli)
+          const jsonNews = data.news;
+          const localNews = this.getAllNews();
+          
+          // JSON'daki haberleri öncelik vererek birleştir
+          // JSON'daki haberlerin ID'lerini al
+          const jsonIds = new Set(jsonNews.map(n => n.id));
+          
+          // localStorage'daki JSON'da olmayan haberleri ekle
+          const localOnlyNews = localNews.filter(n => !jsonIds.has(n.id));
+          
+          // Önce JSON'dakiler, sonra localStorage'dakiler
+          const combinedNews = [...jsonNews, ...localOnlyNews];
+          
+          // localStorage'a da kaydet (geriye dönük uyumluluk için)
+          if (combinedNews.length > 0) {
+            localStorage.setItem(this.storageKey, JSON.stringify(combinedNews));
             this.loadNews();
+            console.log(`JSON'dan ${jsonNews.length} haber yüklendi. Toplam: ${combinedNews.length}`);
           }
+        } else {
+          console.log('JSON dosyası boş veya geçersiz format');
         }
+      } else {
+        console.log('JSON dosyası bulunamadı (404), sadece localStorage kullanılıyor');
       }
     } catch (error) {
       // JSON dosyası yoksa sadece localStorage kullan
-      console.log('JSON dosyası yüklenemedi, localStorage kullanılıyor');
+      console.log('JSON dosyası yüklenemedi, localStorage kullanılıyor:', error.message);
     }
   }
 
