@@ -1,5 +1,6 @@
 // Global değişkenler - en üstte tanımlanmalı
 let heroSlideshowInterval = null;
+let heroSlideshowRestartTimeout = null;
 let heroContent = null; // Global heroContent
 let updateHeroContent = null; // Global updateHeroContent
 
@@ -494,6 +495,32 @@ function initHeroSlideshow() {
   window.carouselRotateFn = null;
   let isTransitioning = false; // Geçiş sırasında çakışmayı önlemek için
 
+  const clearHeroInterval = () => {
+    if (heroSlideshowInterval) {
+      clearInterval(heroSlideshowInterval);
+      heroSlideshowInterval = null;
+    }
+  };
+
+  const clearHeroRestartTimeout = () => {
+    if (heroSlideshowRestartTimeout) {
+      clearTimeout(heroSlideshowRestartTimeout);
+      heroSlideshowRestartTimeout = null;
+    }
+  };
+
+  const startHeroInterval = (delay = 0) => {
+    clearHeroRestartTimeout();
+    heroSlideshowRestartTimeout = setTimeout(() => {
+      clearHeroInterval();
+      heroSlideshowInterval = setInterval(() => {
+        if (!isTransitioning) {
+          updateHeroContent();
+        }
+      }, slideDuration);
+    }, delay);
+  };
+
   updateHeroContent = (targetIndex = null) => {
     if (!heroTitle || !heroSubtitle || isTransitioning) return;
     
@@ -572,13 +599,7 @@ function initHeroSlideshow() {
     }, 800);
     
     // Slideshow'u başlat - tek merkezi kontrol
-    setTimeout(() => {
-      heroSlideshowInterval = setInterval(() => {
-        if (!isTransitioning) {
-          updateHeroContent();
-        }
-      }, slideDuration);
-    }, 2500);
+    startHeroInterval(2500);
   } catch (error) {
     console.error('Hero slideshow başlatılamadı:', error);
   }
@@ -612,10 +633,8 @@ function initHeroSlideshow() {
       
       if (imageIndex >= 0 && imageIndex < heroContent.length) {
         // Otomatik geçişi durdur
-        if (heroSlideshowInterval) {
-          clearInterval(heroSlideshowInterval);
-          heroSlideshowInterval = null;
-        }
+        clearHeroInterval();
+        clearHeroRestartTimeout();
 
         // Kısa bir gecikme ile değişikliği yap (hızlı geçişlerde animasyon olmasın)
         changeTimeout = setTimeout(() => {
@@ -663,11 +682,8 @@ function initHeroSlideshow() {
       
       // Tüm menülerden çıkıldığında slideshow'a dön
       hoverTimeout = setTimeout(() => {
-        if (!isHovering) {
-          // Otomatik geçişi yeniden başlat
-          if (!heroSlideshowInterval) {
-            heroSlideshowInterval = setInterval(updateHeroContent, slideDuration);
-          }
+        if (!isHovering && !heroSlideshowInterval) {
+          startHeroInterval();
         }
       }, 800);
     });
@@ -851,10 +867,8 @@ function initHeroSlideshow() {
     cards.forEach((card, index) => {
       card.addEventListener('click', () => {
         // Mevcut interval'ı temizle
-        if (heroSlideshowInterval) {
-          clearInterval(heroSlideshowInterval);
-          heroSlideshowInterval = null;
-        }
+        clearHeroInterval();
+        clearHeroRestartTimeout();
         
         // Kartı ve hero içeriğini güncelle
         currentActiveIndex = index;
@@ -864,13 +878,7 @@ function initHeroSlideshow() {
         }
         
         // Interval'ı yeniden başlat
-        setTimeout(() => {
-          heroSlideshowInterval = setInterval(() => {
-            if (!isTransitioning) {
-              updateHeroContent();
-            }
-          }, slideDuration);
-        }, slideDuration);
+        startHeroInterval(slideDuration);
       });
     });
   }

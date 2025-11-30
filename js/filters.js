@@ -197,7 +197,7 @@ class ProductFilters {
 
     card.innerHTML = `
       <a href="${product.url}" class="product-compact-media">
-        <img src="https://via.placeholder.com/120" alt="${product.name}" loading="lazy" />
+        <img src="${product.image || ''}" alt="${product.name}" loading="lazy" onerror="this.classList.add('image-error')" />
       </a>
       <div class="product-compact-info">
         <h3 class="product-compact-title">${product.name}</h3>
