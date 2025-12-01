@@ -558,14 +558,21 @@ a {
 
 @media (max-width: 768px) {
   .hero-container {
-    padding: 0 16px;
-    padding-top: 100px;
-    gap: 30px;
+    padding: 0 20px;
+    padding-top: 90px;
+    padding-bottom: 20px;
+    gap: 25px;
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
   }
   
   .hero-content {
-    padding: 24px;
+    padding: 28px 24px;
     border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.35) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
   }
   
   .hero-content::before {
@@ -573,8 +580,45 @@ a {
   }
   
   .hero-badge-new {
-    font-size: 0.7rem;
-    padding: 6px 12px;
+    font-size: 0.72rem;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, rgba(0, 135, 212, 0.25) 0%, rgba(99, 102, 241, 0.2) 100%);
+    border: 1px solid rgba(0, 135, 212, 0.35);
+    color: #4dc3ff;
+  }
+  
+  .hero-title-modern {
+    font-size: clamp(1.9rem, 7vw, 2.8rem);
+    margin-bottom: 16px;
+  }
+  
+  .title-main {
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .title-accent {
+    text-shadow: 0 2px 20px rgba(229, 37, 42, 0.4);
+  }
+  
+  .hero-subtitle-modern {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 22px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .hero-actions-modern {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .btn-modern {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 0.95rem;
+    justify-content: center;
   }
   
   .stat-modern::after {
@@ -582,7 +626,141 @@ a {
   }
   
   .hero-stats-modern {
-    gap: 20px;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+  }
+  
+  .stat-number-modern {
+    font-size: 1.4rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .stat-label-modern {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  
+  /* Mobilde visual kısmı gizle - sadece içerik göster */
+  .hero-visual {
+    display: none;
+  }
+}
+
+/* 480px ve altı - küçük telefonlar */
+@media (max-width: 480px) {
+  .hero-container {
+    padding: 0 16px;
+    padding-top: 85px;
+    padding-bottom: 15px;
+  }
+  
+  .hero-content {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  
+  .hero-badge-new {
+    font-size: 0.68rem;
+    padding: 6px 12px;
+    margin-bottom: 16px;
+  }
+  
+  .hero-title-modern {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    margin-bottom: 14px;
+    line-height: 1.15;
+  }
+  
+  .hero-subtitle-modern {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  
+  .btn-modern {
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .hero-stats-modern {
+    gap: 12px;
+    padding-top: 16px;
+  }
+  
+  .stat-modern {
+    flex: 1 1 45%;
+    min-width: 0;
+  }
+  
+  .stat-number-modern {
+    font-size: 1.25rem;
+  }
+  
+  .stat-label-modern {
+    font-size: 0.68rem;
+  }
+}
+
+/* Mobilde arka plan efektlerini optimize et - netlik için */
+@media (max-width: 768px) {
+  /* Floating orb'ları daha hafif yap */
+  .floating-orb {
+    opacity: 0.3;
+    filter: blur(60px);
+  }
+  
+  /* Scan line efektini kaldır - netlik için */
+  .hero-background::after {
+    display: none;
+  }
+  
+  /* Grid overlay'i hafiflet */
+  .hero-background .animated-grid {
+    opacity: 0.03;
+  }
+  
+  /* Noise texture'ı kaldır */
+  .hero-background .noise-texture {
+    display: none;
+  }
+  
+  /* Conic gradient'i hafiflet */
+  .hero-background .conic-gradient {
+    opacity: 0.15;
+  }
+  
+  /* Hero scroll indicator mobil optimizasyonu */
+  .hero-scroll-indicator {
+    bottom: 25px;
+    font-size: 0.75rem;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-scroll-indicator svg {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+  }
+}
+
+@media (max-width: 480px) {
+  /* Daha küçük ekranlarda orb'ları daha da hafiflet */
+  .floating-orb {
+    opacity: 0.2;
+    filter: blur(50px);
+  }
+  
+  .hero-scroll-indicator {
+    bottom: 20px;
+    font-size: 0.7rem;
+  }
+  
+  .hero-scroll-indicator svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
