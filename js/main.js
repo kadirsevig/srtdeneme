@@ -335,6 +335,42 @@ function renderTurkeyMap() {
         }
         });
 
+      // Tooltip oluştur
+      const tooltip = document.createElement('div');
+      tooltip.className = 'turkey-map-tooltip';
+      mapPanel.appendChild(tooltip);
+
+      // İllere hover efekti ekle
+      provincesPaths
+        .on('mouseenter', function(event, feature) {
+          const provinceName = feature.properties.name;
+          const displayName = getDisplayName(provinceName);
+          const isActive = d3.select(this).classed('is-active');
+          
+          tooltip.textContent = displayName;
+          tooltip.classList.toggle('is-active-province', isActive);
+          tooltip.classList.add('visible');
+          
+          // Tooltip pozisyonu
+          const rect = mapPanel.getBoundingClientRect();
+          const mouseX = event.clientX - rect.left;
+          const mouseY = event.clientY - rect.top;
+          
+          tooltip.style.left = mouseX + 'px';
+          tooltip.style.top = mouseY + 'px';
+        })
+        .on('mousemove', function(event) {
+          const rect = mapPanel.getBoundingClientRect();
+          const mouseX = event.clientX - rect.left;
+          const mouseY = event.clientY - rect.top;
+          
+          tooltip.style.left = mouseX + 'px';
+          tooltip.style.top = mouseY + 'px';
+        })
+        .on('mouseleave', function() {
+          tooltip.classList.remove('visible');
+        });
+
       if (loadingOverlay) {
         loadingOverlay.remove();
       }

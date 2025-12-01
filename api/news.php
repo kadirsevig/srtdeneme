@@ -324,3 +324,4 @@ try {
     echo json_encode(['success' => false, 'error' => 'Sunucu hatası: ' . $e->getMessage()]);
 }
 
+

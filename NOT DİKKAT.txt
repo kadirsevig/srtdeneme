@@ -1,0 +1,3 @@
+Klasör	İzin
+data/	755 veya 775
+uploads/news/	755 veya 775

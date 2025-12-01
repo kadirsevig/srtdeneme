@@ -63,3 +63,4 @@ if (move_uploaded_file($file['tmp_name'], $filepath)) {
     echo json_encode(['success' => false, 'error' => 'Dosya yüklenirken bir hata oluştu.']);
 }
 
+
