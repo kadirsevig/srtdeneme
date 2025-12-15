@@ -4,6 +4,99 @@ let heroSlideshowRestartTimeout = null;
 let heroContent = null; // Global heroContent
 let updateHeroContent = null; // Global updateHeroContent
 
+// Hero card variables
+let heroCurrentActiveIndex = 0;
+
+// Hero content data
+const heroTitles = [
+  'Hematoloji Çözümleri',
+  'Kan Gazı Analiz Sistemleri',
+  'Biyokimya Analiz Platformları'
+];
+const heroSubtitles = [
+  'Mindray BC-6000 ile 6-diff CBC ve NRBC ölçümü. Yoğun laboratuvarlar için yüksek verimlilik ve güvenilirlik.',
+  'Stat Profile Prime Plus ile 90 saniyede kapsamlı kritik bakım paneli. Otomatik sıvı QC desteği ile kesintisiz operasyon.',
+  'Mindray BS-600M ile modüler tasarım ve düşük reaktif tüketimi. Verimli laboratuvar operasyonları için ideal çözüm.'
+];
+
+// Global function to switch hero card - called from HTML onclick
+window.switchHeroCard = function(index) {
+  console.log('switchHeroCard called with index:', index);
+  
+  const container = document.getElementById('product-cards-container');
+  if (!container) {
+    console.error('Container bulunamadı');
+    return;
+  }
+
+  const cards = container.querySelectorAll('.product-card');
+  if (cards.length === 0) {
+    console.error('Kartlar bulunamadı');
+    return;
+  }
+
+  heroCurrentActiveIndex = index;
+  const stackOffset = 18;
+  const maxVisibleCards = 3;
+
+  // Update card stack
+  cards.forEach((card, cardIndex) => {
+    const distance = Math.abs(cardIndex - heroCurrentActiveIndex);
+    const isActive = cardIndex === heroCurrentActiveIndex;
+
+    if (distance > maxVisibleCards) {
+      card.style.opacity = '0';
+      card.style.visibility = 'hidden';
+      card.style.pointerEvents = 'none';
+      return;
+    }
+
+    card.style.opacity = '1';
+    card.style.visibility = 'visible';
+    card.style.display = 'flex';
+    card.style.pointerEvents = 'auto';
+
+    if (isActive) {
+      card.style.zIndex = (cards.length + 10).toString();
+      card.classList.add('active');
+    } else {
+      card.style.zIndex = (cards.length - distance).toString();
+      card.classList.remove('active');
+    }
+
+    const offsetY = distance * stackOffset;
+    const offsetX = (cardIndex - heroCurrentActiveIndex) * 10;
+    const scale = isActive ? 1 : 0.88 - (distance * 0.06);
+    const opacity = isActive ? 1 : 0.65 - (distance * 0.15);
+
+    card.style.transition = 'transform 0.4s ease-out, opacity 0.4s ease-out, box-shadow 0.3s ease';
+    card.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+    card.style.opacity = Math.max(opacity, 0.25).toString();
+  });
+
+  // Update hero content
+  const heroTitle = document.getElementById('hero-title');
+  const heroSubtitle = document.getElementById('hero-subtitle');
+
+  if (heroTitle && heroSubtitle && heroTitles[index] && heroSubtitles[index]) {
+    const titleMain = heroTitle.querySelector('.title-main');
+    if (titleMain) {
+      titleMain.textContent = heroTitles[index];
+    }
+    heroSubtitle.textContent = heroSubtitles[index];
+
+    // Fade effect
+    heroTitle.style.transition = 'opacity 0.3s ease';
+    heroSubtitle.style.transition = 'opacity 0.3s ease';
+    heroTitle.style.opacity = '0';
+    heroSubtitle.style.opacity = '0';
+    setTimeout(() => {
+      heroTitle.style.opacity = '1';
+      heroSubtitle.style.opacity = '1';
+    }, 150);
+  }
+};
+
 function initApp() {
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
@@ -88,12 +181,49 @@ function initApp() {
   });
 
   renderTurkeyMap();
-  // Hero section sadece anasayfada var
-  if (document.querySelector('.hero-home')) {
-    initHeroSlideshow();
-  }
+  
+  // Hero simplified - no cards needed
+  
   initVideoModal();
   initVideoAccordion();
+  initProductBoxNotifications();
+}
+
+// Ürün kartları için toast bildirimi ve tooltip
+function initProductBoxNotifications() {
+  const productBoxes = document.querySelectorAll('.product-box');
+  
+  if (productBoxes.length === 0) return;
+  
+  // Toast container oluştur (eğer yoksa)
+  let toastContainer = document.querySelector('.product-toast');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.className = 'product-toast';
+    toastContainer.innerHTML = `
+      <span class="product-toast-icon">→</span>
+      <span class="product-toast-message">Detay sayfasına yönlendiriliyorsunuz...</span>
+    `;
+    document.body.appendChild(toastContainer);
+  }
+  
+  // Toast göster
+  function showToast() {
+    toastContainer.classList.add('show');
+    
+    // 2.5 saniye sonra gizle
+    setTimeout(() => {
+      toastContainer.classList.remove('show');
+    }, 2500);
+  }
+  
+  // Her karta tıklama eventi ekle
+  productBoxes.forEach((box) => {
+    box.addEventListener('click', function(e) {
+      // Eğer link zaten tıklanmışsa toast göster
+      showToast();
+    });
+  });
 }
 
 // Hem DOMContentLoaded hem de window.onload'da çalıştır
@@ -103,19 +233,34 @@ if (document.readyState === 'loading') {
   initApp();
 }
 
+
+// Hero product cards initialization - initialize existing cards
+function initHeroProductCards() {
+  const container = document.getElementById('product-cards-container');
+  if (!container) {
+    return;
+  }
+
+  const cards = container.querySelectorAll('.product-card');
+  if (cards.length === 0) {
+    return;
+  }
+
+  // Initialize stack positions
+  cards.forEach((card, index) => {
+    card.style.transition = 'transform 0.4s ease-out, opacity 0.4s ease-out, box-shadow 0.3s ease';
+  });
+
+  // Set initial stack
+  window.switchHeroCard(0);
+
+  console.log('Hero kartlar başlatıldı:', cards.length, 'kart');
+}
+
 // Ek güvenlik için window.onload'da da çalıştır
 window.addEventListener('load', () => {
-  // Hero slideshow çalışmıyorsa tekrar dene
-  const hero = document.querySelector('.hero-home');
-  const heroTitle = document.getElementById('hero-title');
-  if (hero && heroTitle && heroSlideshowInterval === null) {
-    // Eğer başlık hala varsayılan metindeyse slideshow çalışmamış demektir
-    const defaultTitle = 'Laboratuvar ve Yoğun Bakım Çözümlerinde Güvenilir İş Ortağınız';
-    if (heroTitle.textContent === defaultTitle) {
-      if (document.querySelector('.hero-home')) {
-        initHeroSlideshow();
-      }
-    }
+  if (document.querySelector('.hero-home')) {
+    initHeroProductCards();
   }
 });
 
@@ -781,6 +926,9 @@ function initHeroSlideshow() {
       return;
     }
 
+    // Clear existing cards first
+    container.innerHTML = '';
+
     if (!heroContent || heroContent.length === 0) {
       console.warn('Hero content bulunamadı');
       return;
@@ -797,8 +945,8 @@ function initHeroSlideshow() {
       // Kartlar merkeze yerleştirilecek, stack yapısı JavaScript'te ayarlanacak
       card.style.left = '50%';
       card.style.top = '50%';
-      card.style.marginLeft = '-230px'; // Kart genişliğinin yarısı (460px / 2)
-      card.style.marginTop = '-190px'; // Kart yüksekliğinin yarısı (380px / 2) - merkeze hizala
+      card.style.marginLeft = '-190px'; // Kart genişliğinin yarısı (380px / 2)
+      card.style.marginTop = '-155px'; // Kart yüksekliğinin yarısı (310px / 2) - merkeze hizala
       
       card.innerHTML = `
         <div class="card-image-wrapper">
@@ -831,8 +979,8 @@ function initHeroSlideshow() {
 
     // Modern Card Stack - kartlar üst üste, en üstteki öne çıkar
     let currentActiveIndex = 0;
-    const stackOffset = 15; // Her kart arası offset
-    const maxVisibleCards = 5; // Maksimum görünen kart sayısı
+    const stackOffset = 18; // Her kart arası offset
+    const maxVisibleCards = 3; // Maksimum görünen kart sayısı
     
     // Aktif index'i dışarıdan set etme fonksiyonu
     window.setCarouselActiveIndex = (index) => {
@@ -851,7 +999,6 @@ function initHeroSlideshow() {
       cards.forEach((card, index) => {
         const distance = Math.abs(index - currentActiveIndex);
         const isActive = index === currentActiveIndex;
-        const isBehind = index < currentActiveIndex;
         
         // Sadece yakındaki kartları göster
         if (distance > maxVisibleCards) {
@@ -876,15 +1023,15 @@ function initHeroSlideshow() {
           card.classList.remove('active');
         }
         
-        // Pozisyon: kartlar üst üste, aktif kart önde
+        // Pozisyon: kartlar üst üste, aktif kart önde - static, smooth transitions
         const offsetY = distance * stackOffset;
-        const offsetX = (index - currentActiveIndex) * 8;
-        const scale = isActive ? 1 : 0.85 - (distance * 0.05);
-        const opacity = isActive ? 1 : 0.6 - (distance * 0.1);
+        const offsetX = (index - currentActiveIndex) * 10;
+        const scale = isActive ? 1 : 0.88 - (distance * 0.06);
+        const opacity = isActive ? 1 : 0.65 - (distance * 0.15);
         
-        card.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        card.style.transition = 'transform 0.4s ease-out, opacity 0.4s ease-out, box-shadow 0.3s ease';
         card.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-        card.style.opacity = Math.max(opacity, 0.3);
+        card.style.opacity = Math.max(opacity, 0.25);
       });
     }
     
@@ -894,27 +1041,50 @@ function initHeroSlideshow() {
       updateCardStack();
     };
     
-    // İlk pozisyonu ayarla
+    // İlk pozisyonu ayarla - hemen çalıştır
     updateCardStack();
-    console.log('Kart stack güncellendi');
     
-    // Kart tıklama - hero slideshow ile senkronize
+    // Force cards to be visible
+    const allCards = container.querySelectorAll('.product-card');
+    console.log('Kartlar oluşturuldu ve güncellendi - Toplam:', allCards.length, 'Aktif:', currentActiveIndex);
+    
+    // Double check visibility
+    allCards.forEach(card => {
+      card.style.display = 'flex';
+      card.style.visibility = 'visible';
+      if (!card.style.opacity || card.style.opacity === '0') {
+        card.style.opacity = '1';
+      }
+    });
+    
+    // Kart tıklama - simple static update (no slideshow)
     const cards = container.querySelectorAll('.product-card');
+    const heroTitles = [
+      'Hematoloji Çözümleri',
+      'Kan Gazı Analiz Sistemleri',
+      'Biyokimya Analiz Platformları'
+    ];
+    const heroSubtitles = [
+      'Mindray BC-6000 ile 6-diff CBC ve NRBC ölçümü. Yoğun laboratuvarlar için yüksek verimlilik ve güvenilirlik.',
+      'Stat Profile Prime Plus ile 90 saniyede kapsamlı kritik bakım paneli. Otomatik sıvı QC desteği ile kesintisiz operasyon.',
+      'Mindray BS-600M ile modüler tasarım ve düşük reaktif tüketimi. Verimli laboratuvar operasyonları için ideal çözüm.'
+    ];
+    
     cards.forEach((card, index) => {
       card.addEventListener('click', () => {
-        // Mevcut interval'ı temizle
-        clearHeroInterval();
-        clearHeroRestartTimeout();
-        
-        // Kartı ve hero içeriğini güncelle
+        // Kartı güncelle
         currentActiveIndex = index;
         updateCardStack();
-        if (updateHeroContent) {
-          updateHeroContent(index);
+        // Hero içeriğini güncelle (slideshow olmadan)
+        const heroTitle = document.getElementById('hero-title');
+        const heroSubtitle = document.getElementById('hero-subtitle');
+        if (heroTitle && heroSubtitle && heroTitles[index] && heroSubtitles[index]) {
+          const titleMain = heroTitle.querySelector('.title-main');
+          if (titleMain) {
+            titleMain.textContent = heroTitles[index];
+          }
+          heroSubtitle.textContent = heroSubtitles[index];
         }
-        
-        // Interval'ı yeniden başlat
-        startHeroInterval(slideDuration);
       });
     });
   }
@@ -927,34 +1097,45 @@ function initVideoAccordion() {
   accordionButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const isExpanded = button.getAttribute('aria-expanded') === 'true';
-      const item = button.closest('.video-accordion-item');
-      const content = item ? item.querySelector('.video-accordion-content') : null;
+      const content = button.nextElementSibling;
       const video = content ? content.querySelector('video') : null;
       
-      // Tüm accordion'ları kapat
-      accordionButtons.forEach((btn) => {
-        if (btn !== button) {
-          btn.setAttribute('aria-expanded', 'false');
-          const otherItem = btn.closest('.video-accordion-item');
-          const otherContent = otherItem ? otherItem.querySelector('.video-accordion-content') : null;
-          if (otherContent) {
-            otherContent.hidden = true;
-            otherContent.style.maxHeight = '0';
-            const otherVideo = otherContent.querySelector('video');
-            if (otherVideo) {
-              otherVideo.pause();
-              otherVideo.currentTime = 0;
+      // Eğer bu kart açılıyorsa, diğer tüm açık kartları kapat
+      if (!isExpanded) {
+        accordionButtons.forEach((btn) => {
+          if (btn !== button) {
+            const wasExpanded = btn.getAttribute('aria-expanded') === 'true';
+            if (wasExpanded) {
+              btn.setAttribute('aria-expanded', 'false');
+              const otherContent = btn.nextElementSibling;
+              if (otherContent) {
+                otherContent.style.maxHeight = '0';
+                // Yandex uyumluluğu için setTimeout
+                setTimeout(() => {
+                  otherContent.style.display = 'none';
+                  otherContent.setAttribute('hidden', '');
+                }, 400);
+                const otherVideo = otherContent.querySelector('video');
+                if (otherVideo) {
+                  otherVideo.pause();
+                  otherVideo.currentTime = 0;
+                }
+              }
             }
           }
-        }
-      });
+        });
+      }
       
       // Mevcut accordion'u aç/kapat
       if (isExpanded) {
         button.setAttribute('aria-expanded', 'false');
         if (content) {
-          content.hidden = true;
           content.style.maxHeight = '0';
+          // Yandex uyumluluğu için setTimeout
+          setTimeout(() => {
+            content.style.display = 'none';
+            content.setAttribute('hidden', '');
+          }, 400);
         }
         if (video) {
           video.pause();
@@ -963,8 +1144,51 @@ function initVideoAccordion() {
       } else {
         button.setAttribute('aria-expanded', 'true');
         if (content) {
-          content.hidden = false;
-          content.style.maxHeight = content.scrollHeight + 'px';
+          content.removeAttribute('hidden');
+          content.style.display = 'block';
+          
+          // Yandex uyumluluğu için video'yu tamamen yeniden oluştur
+          if (video) {
+            const source = video.querySelector('source');
+            if (source) {
+              const src = source.getAttribute('src');
+              const type = source.getAttribute('type');
+              
+              // Eski video'yu kaldır
+              const parent = video.parentNode;
+              video.remove();
+              
+              // Yeni video elementi oluştur
+              const newVideo = document.createElement('video');
+              newVideo.controls = true;
+              newVideo.setAttribute('controls', 'controls');
+              
+              const newSource = document.createElement('source');
+              newSource.src = src;
+              if (type) {
+                newSource.type = type;
+              }
+              
+              newVideo.appendChild(newSource);
+              newVideo.appendChild(document.createTextNode('Tarayıcınız video oynatmayı desteklemiyor.'));
+              
+              // Yeni video'yu ekle
+              parent.appendChild(newVideo);
+              
+              // Yükseklik ayarla
+              setTimeout(() => {
+                content.style.maxHeight = '600px';
+              }, 50);
+            } else {
+              // Source yoksa normal aç
+              content.style.maxHeight = '600px';
+              video.currentTime = 0;
+              video.pause();
+              video.load();
+            }
+          } else {
+            content.style.maxHeight = '600px';
+          }
         }
       }
     });
@@ -977,10 +1201,6 @@ function initVideoAccordion() {
     if (originalSrc && originalSrc.includes(' ')) {
       const encodedSrc = originalSrc.replace(/ /g, '%20');
       source.setAttribute('src', encodedSrc);
-      const video = source.closest('video');
-      if (video) {
-        video.load();
-      }
     }
   });
 }
