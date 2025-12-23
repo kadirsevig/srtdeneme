@@ -175,7 +175,14 @@ function initApp() {
       if (!isOpen) {
         panel.hidden = false;
         panel.classList.add('is-open');
-        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Header yüksekliğini hesaba katarak scroll
+        const header = document.querySelector('.site-header');
+        const headerHeight = header ? header.offsetHeight : 100;
+        const panelTop = panel.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: panelTop - headerHeight - 20,
+          behavior: 'smooth'
+        });
       }
     });
   });
@@ -192,6 +199,69 @@ function initApp() {
   initScrollIndicator();
   initParallaxEffects();
   initFadeInOnScroll();
+  animateStats();
+  initContactForm();
+  initHashNavigation();
+}
+
+// Hash navigation ve scroll pozisyonu düzeltme
+function initHashNavigation() {
+  // Sayfa yüklendiğinde hash varsa scroll pozisyonunu düzelt
+  if (window.location.hash) {
+    // Sayfanın tamamen yüklenmesini bekle
+    setTimeout(() => {
+      const targetId = window.location.hash.substring(1);
+      const targetElement = document.getElementById(targetId) || document.querySelector(`[data-turkey-map]`);
+      
+      if (targetElement) {
+        const header = document.querySelector('.site-header');
+        const headerHeight = header ? header.offsetHeight : 100;
+        const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        
+        window.scrollTo({
+          top: targetTop - headerHeight - 20,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
+    return; // Hash varsa diğer kontrolleri yapma
+  }
+  
+  // Referanslar sayfasında haritanın görünür olmasını sağla
+  if (document.querySelector('[data-turkey-map]')) {
+    const mapPanel = document.querySelector('.turkey-map-panel');
+    if (mapPanel) {
+      // Sayfa yüklendiğinde scroll pozisyonunu kontrol et
+      const checkScrollPosition = () => {
+        const header = document.querySelector('.site-header');
+        const headerHeight = header ? header.offsetHeight : 100;
+        const mapRect = mapPanel.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Eğer harita header'ın altında kalıyorsa (viewport'ta görünmüyorsa), scroll et
+        if (mapRect.top < headerHeight + 20) {
+          const mapTop = mapRect.top + scrollTop;
+          window.scrollTo({
+            top: mapTop - headerHeight - 20,
+            behavior: 'smooth'
+          });
+        }
+      };
+      
+      // İlk kontrol - sayfa yüklendiğinde
+      setTimeout(checkScrollPosition, 300);
+      
+      // Harita yüklendiğinde tekrar kontrol et
+      const observer = new MutationObserver(() => {
+        if (mapPanel.classList.contains('is-ready')) {
+          setTimeout(checkScrollPosition, 200);
+          observer.disconnect();
+        }
+      });
+      
+      observer.observe(mapPanel, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
 }
 
 // Ürün kartları için toast bildirimi ve tooltip
@@ -1497,6 +1567,90 @@ function initFadeInOnScroll() {
     element.classList.add('fade-in-on-scroll');
     observer.observe(element);
   });
+}
+
+// Animate Statistics Numbers
+function animateStats() {
+  const statNumbers = document.querySelectorAll('.stat-number');
+  
+  if (statNumbers.length === 0) return;
+  
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+        const target = parseInt(entry.target.getAttribute('data-target'));
+        animateNumber(entry.target, target);
+        entry.target.classList.add('animated');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  statNumbers.forEach(stat => observer.observe(stat));
+}
+
+function animateNumber(element, target) {
+  const duration = 2000;
+  const start = 0;
+  const increment = target / (duration / 16);
+  let current = start;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      element.textContent = target;
+      clearInterval(timer);
+    } else {
+      element.textContent = Math.floor(current);
+    }
+  }, 16);
+}
+
+// Contact Form Handling
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    // Form validation
+    if (!data.name || !data.email || !data.subject || !data.message) {
+      alert('Lütfen tüm zorunlu alanları doldurun.');
+      return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      alert('Lütfen geçerli bir e-posta adresi girin.');
+      return;
+    }
+    
+    // Here you would normally send the form data to a server
+    // For now, we'll just show a success message
+    alert('Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.');
+    form.reset();
+  });
+}
+
+// Initialize all functions
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    animateStats();
+    initContactForm();
+  });
+} else {
+  animateStats();
+  initContactForm();
 }
 
 
