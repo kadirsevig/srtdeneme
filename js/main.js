@@ -186,7 +186,12 @@ function initApp() {
   
   initVideoModal();
   initVideoAccordion();
+  initIntegrationVideoModal();
   initProductBoxNotifications();
+  initPageLoader();
+  initScrollIndicator();
+  initParallaxEffects();
+  initFadeInOnScroll();
 }
 
 // Ürün kartları için toast bildirimi ve tooltip
@@ -1297,6 +1302,200 @@ function initVideoModal() {
     video.addEventListener('loadedmetadata', () => {
       video.style.pointerEvents = 'auto';
     });
+  });
+}
+
+function initIntegrationVideoModal() {
+  const videoModal = document.getElementById('video-modal');
+  const modalVideo = document.getElementById('modal-video');
+  const modalClose = document.querySelector('.video-modal-close');
+  const videoCards = document.querySelectorAll('.integration-video-card');
+  
+  if (!videoModal || !modalVideo) {
+    return;
+  }
+  
+  if (videoCards.length === 0) {
+    return;
+  }
+  
+  // Modal'ı kapat fonksiyonu
+  function closeModal() {
+    if (modalVideo) {
+      modalVideo.pause();
+      modalVideo.currentTime = 0;
+    }
+    videoModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  
+  // Video kartlarına tıklama eventi
+  videoCards.forEach((card) => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const videoSrc = card.getAttribute('data-video');
+      
+      if (videoSrc) {
+        // Video kaynağını modal'a yükle
+        const source = document.createElement('source');
+        source.src = videoSrc;
+        source.type = 'video/mp4';
+        
+        // Eski kaynakları temizle
+        modalVideo.innerHTML = '';
+        modalVideo.appendChild(source);
+        modalVideo.appendChild(document.createTextNode('Tarayıcınız video oynatmayı desteklemiyor.'));
+        
+        // Modal'ı aç
+        videoModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        
+        // Video'yu yükle ve oynat
+        modalVideo.load();
+        setTimeout(() => {
+          const playPromise = modalVideo.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(err => {
+              console.error('Video oynatılamadı:', err);
+            });
+          }
+        }, 300);
+      }
+    });
+  });
+  
+  // Close butonuna tıklama
+  if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
+  }
+  
+  // Overlay'e tıklama
+  const overlay = document.querySelector('.video-modal-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', closeModal);
+  }
+  
+  // ESC tuşu ile kapat
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal.getAttribute('aria-hidden') === 'false') {
+      closeModal();
+    }
+  });
+  
+  // Video bittiğinde modal'ı kapat (opsiyonel)
+  modalVideo.addEventListener('ended', () => {
+    // Modal'ı kapatmak istemiyorsanız bu satırı kaldırın
+    // closeModal();
+  });
+}
+
+// Page Loader
+function initPageLoader() {
+  const loader = document.getElementById('page-loader');
+  if (!loader) return;
+  
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      loader.classList.add('loaded');
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500);
+    }, 300);
+  });
+}
+
+// Scroll Indicator
+function initScrollIndicator() {
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (!scrollIndicator) return;
+  
+  // Scroll indicator'a tıklama
+  scrollIndicator.addEventListener('click', () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  });
+  
+  // Scroll pozisyonuna göre gizle/göster
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > window.innerHeight * 0.8) {
+      scrollIndicator.classList.add('hidden');
+    } else if (scrollTop < lastScrollTop) {
+      scrollIndicator.classList.remove('hidden');
+    }
+    
+    lastScrollTop = scrollTop;
+  });
+}
+
+// Parallax Effects - Subtle parallax for background images only
+function initParallaxEffects() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+  
+  // Only apply parallax to elements with .parallax-element class
+  const parallaxElements = document.querySelectorAll('.parallax-element');
+  
+  if (parallaxElements.length === 0) return;
+  
+  let ticking = false;
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrolled = window.pageYOffset;
+        
+        parallaxElements.forEach((element, index) => {
+          const rect = element.getBoundingClientRect();
+          const elementTop = rect.top + scrolled;
+          const elementBottom = elementTop + rect.height;
+          
+          if (scrolled + window.innerHeight > elementTop && scrolled < elementBottom) {
+            const parallaxSpeed = 0.2 + (index % 3) * 0.1;
+            const yPos = -(scrolled - elementTop) * parallaxSpeed;
+            element.style.transform = `translateY(${yPos}px)`;
+          }
+        });
+        
+        ticking = false;
+      });
+      
+      ticking = true;
+    }
+  });
+}
+
+// Fade In On Scroll
+function initFadeInOnScroll() {
+  const fadeElements = document.querySelectorAll('.fade-in-on-scroll, .section, .product-showcase-card, .integration-video-card, .latest-news-card, .info-card');
+  
+  if (fadeElements.length === 0) return;
+  
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  fadeElements.forEach(element => {
+    element.classList.add('fade-in-on-scroll');
+    observer.observe(element);
   });
 }
 

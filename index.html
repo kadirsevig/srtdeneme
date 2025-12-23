@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap&subset=latin,latin-ext"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=4.7" />
+    <link rel="stylesheet" href="css/styles.css?v=5.0" />
     <script src="js/main.js?v=4.4" defer></script>
     <script src="js/hero-slider.js" defer></script>
     <script src="js/news-data.js" defer></script>
@@ -28,8 +28,17 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
   </head>
-  <body>
+  <body style="scroll-behavior: smooth;">
     <a class="skip-link" href="#main">İçeriğe geç</a>
+    <!-- Loading Animation -->
+    <div class="page-loader" id="page-loader">
+      <div class="loader-content">
+        <div class="loader-logo">
+          <img src="logo.png" alt="SRT Medikal" />
+        </div>
+        <div class="loader-spinner"></div>
+      </div>
+    </div>
     <header class="site-header" id="top">
       <div class="container header-inner">
         <a class="brand" href="index.html" aria-label="SRT Medikal Anasayfa">
@@ -115,76 +124,11 @@
           </div>
           
           <!-- Slide 5 -->
-          <div class="hero-slide" style="background-image: url('https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/large-test-volume/bs-2000m/glp29-s1-web.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Yüksek Hacimli Biyokimya</h1>
-              <p class="hero-slide-text">Mindray BS-2000M ile yüksek hacimli laboratuvarlar için gelişmiş biyokimya analizi. Tam otomatik işlem ve yüksek verimlilik.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 6 -->
-          <div class="hero-slide" style="background-image: url('https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemiluminescence-immunoassay/large-test-volume/sal-6000/glp96-s2.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Entegre Laboratuvar Sistemleri</h1>
-              <p class="hero-slide-text">SAL 6000 ile kimya ve immünoassay entegrasyonu. Yüksek hacimli laboratuvarlar için ideal çözüm ve otomasyon.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 7 -->
           <div class="hero-slide" style="background-image: url('https://www.succeeder.com/uploads/SF9200_20220713095902.jpg');">
             <div class="hero-slide-overlay"></div>
             <div class="hero-slide-content">
               <h1 class="hero-slide-title">Koagülasyon Analizörleri</h1>
               <p class="hero-slide-text">Succeeder SF-9200 ile tam otomatik pıhtılaşma analizi. Büyük düzey laboratuvarlar için yüksek kapasiteli sistem ve geniş test menüsü.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 8 -->
-          <div class="hero-slide" style="background-image: url('https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemiluminescence-immunoassay/large-test-volume/cl-6000i/glp60-s2.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Hormon Çözümleri</h1>
-              <p class="hero-slide-text">Mindray CL-6000i kemilüminesans immünoassay analizörü. Yüksek test hacmi laboratuvarlar için tam otomatik ve güvenilir sonuçlar.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 9 -->
-          <div class="hero-slide" style="background-image: url('https://novabiodev.com/wp-content/uploads/2025/01/New_glucose_meter_blood_gas_analyzer_press_release-257x300.png');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Hospital Glukoz/Keton Metre</h1>
-              <p class="hero-slide-text">StatStrip Yeni Nesil ile Linux tabanlı işletim sistemi ve gelişmiş siber güvenlik. Tüm kritik hasta örnekleri için FDA onaylı tek glukoz metre.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 10 -->
-          <div class="hero-slide" style="background-image: url('https://static.wixstatic.com/media/48ddcc_e982a02749e948119611a377b3e0fdd2~mv2.jpg/v1/fill/w_720,h_450,al_c,lg_1,q_80,enc_avif,quality_auto/48ddcc_e982a02749e948119611a377b3e0fdd2~mv2.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">İdrar Mikroskopisi Analizörü</h1>
-              <p class="hero-slide-text">TRIsed-200 ile yapay zeka destekli tam otomatik idrar mikroskopisi. Akış hücresi teknolojisi ve 120 test/saat kapasitesi.</p>
               <div class="hero-slide-actions">
                 <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
                 <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
@@ -200,15 +144,93 @@
           <span class="hero-dot" data-slide="2"></span>
           <span class="hero-dot" data-slide="3"></span>
           <span class="hero-dot" data-slide="4"></span>
-          <span class="hero-dot" data-slide="5"></span>
-          <span class="hero-dot" data-slide="6"></span>
-          <span class="hero-dot" data-slide="7"></span>
-          <span class="hero-dot" data-slide="8"></span>
-          <span class="hero-dot" data-slide="9"></span>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator" aria-hidden="true">
+          <div class="scroll-indicator-text">Aşağı kaydır</div>
+          <div class="scroll-indicator-mouse">
+            <div class="scroll-indicator-wheel"></div>
+          </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="integration-title">
+      <section class="section section-products-showcase" aria-labelledby="products-showcase-title">
+        <div class="container">
+          <div class="products-showcase-header">
+            <h2 id="products-showcase-title" class="products-showcase-title">
+              <span class="title-text">Çözümlerimiz</span>
+            </h2>
+            <p class="products-showcase-lead">
+              Laboratuvar ve yoğun bakım süreçleriniz için kapsamlı teknoloji çözümleri sunuyoruz.
+            </p>
+          </div>
+          <div class="products-showcase-grid">
+            <a href="hemogram.html" class="product-showcase-card">
+              <div class="product-showcase-image">
+                <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/hematology/medium-test-volume/bc-6000/glp18-s3.jpg" alt="Hematoloji Çözümleri" loading="lazy" />
+              </div>
+              <div class="product-showcase-content">
+                <h3 class="product-showcase-card-title">Hematoloji Çözümleri</h3>
+                <p class="product-showcase-card-desc">Tam otomatik hematoloji analizörleri ile kan sayımı ve analiz işlemlerinizi hızlı ve güvenilir şekilde gerçekleştirin.</p>
+                <span class="product-showcase-card-link">Detayları Gör →</span>
+              </div>
+            </a>
+            <a href="kangazi.html" class="product-showcase-card">
+              <div class="product-showcase-image">
+                <img src="https://bimedis.com/img/vimg/3958293/original" alt="Kan Gazı Çözümleri" loading="lazy" />
+              </div>
+              <div class="product-showcase-content">
+                <h3 class="product-showcase-card-title">Kan Gazı Çözümleri</h3>
+                <p class="product-showcase-card-desc">Kritik bakım ünitelerinde hızlı ve hassas kan gazı analizi için gelişmiş teknoloji çözümleri.</p>
+                <span class="product-showcase-card-link">Detayları Gör →</span>
+              </div>
+            </a>
+            <a href="biyokimya.html" class="product-showcase-card">
+              <div class="product-showcase-image">
+                <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg" alt="Biyokimya Çözümleri" loading="lazy" />
+              </div>
+              <div class="product-showcase-content">
+                <h3 class="product-showcase-card-title">Biyokimya Çözümleri</h3>
+                <p class="product-showcase-card-desc">Geniş test paneli ve yüksek verimlilik sunan biyokimya analizörleri ile laboratuvar iş akışınızı optimize edin.</p>
+                <span class="product-showcase-card-link">Detayları Gör →</span>
+              </div>
+            </a>
+            <a href="idraranalizor.html" class="product-showcase-card">
+              <div class="product-showcase-image">
+                <img src="https://static.wixstatic.com/media/48ddcc_31ad8bd85962411aba14ca8b6271fc6b~mv2.jpg/v1/crop/x_0,y_85,w_2560,h_1429/fill/w_1210,h_678,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/TRIchem-FRONT.jpg" alt="İdrar Analizörü Çözümleri" loading="lazy" />
+              </div>
+              <div class="product-showcase-content">
+                <h3 class="product-showcase-card-title">İdrar Analizörü Çözümleri</h3>
+                <p class="product-showcase-card-desc">Tam otomatik idrar analiz sistemleri ile rutin idrar testlerinizi verimli ve güvenilir şekilde yürütün.</p>
+                <span class="product-showcase-card-link">Detayları Gör →</span>
+              </div>
+            </a>
+            <a href="kemiluminesans.html" class="product-showcase-card">
+              <div class="product-showcase-image">
+                <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemiluminescence-immunoassay/large-test-volume/cl-6000i/glp60-s2.jpg" alt="Hormon Çözümleri" loading="lazy" />
+              </div>
+              <div class="product-showcase-content">
+                <h3 class="product-showcase-card-title">Hormon Çözümleri</h3>
+                <p class="product-showcase-card-desc">Kemilüminesans immünoassay teknolojisi ile hassas hormon ve tümör belirteç analizleri.</p>
+                <span class="product-showcase-card-link">Detayları Gör →</span>
+              </div>
+            </a>
+            <a href="koagulasyon.html" class="product-showcase-card">
+              <div class="product-showcase-image">
+                <img src="https://www.succeeder.com/uploads/SF9200_20220713095902.jpg" alt="Koagülasyon Analizörleri" loading="lazy" />
+              </div>
+              <div class="product-showcase-content">
+                <h3 class="product-showcase-card-title">Koagülasyon Analizörleri</h3>
+                <p class="product-showcase-card-desc">Pıhtılaşma bozukluklarının teşhisi ve takibi için gelişmiş koagülasyon analiz sistemleri.</p>
+                <span class="product-showcase-card-link">Detayları Gör →</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-integration-modern" aria-labelledby="integration-title">
         <div class="container">
           <div class="integration-header">
             <h2 id="integration-title" class="integration-title">
@@ -218,108 +240,167 @@
               Laboratuvar otomasyon çözümlerimiz hakkında detaylı bilgi almak için videolarımızı inceleyebilirsiniz.
             </p>
           </div>
-          <div class="video-accordion-list">
-            <article class="video-accordion-item">
-              <button class="video-accordion-button" type="button" aria-expanded="false">
-                <span class="video-accordion-title">Mindray CAL 8000</span>
-                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="video-accordion-content" hidden>
-                <video controls>
-                  <source src="entegrasyon/Mindray%20CAL%208000_5.mp4" type="video/mp4">
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+          <div class="integration-videos-grid">
+            <article class="integration-video-card" data-video="entegrasyon/Mindray%20CAL%208000_5.mp4">
+              <div class="integration-video-thumbnail">
+                <div class="integration-video-overlay"></div>
+                <div class="integration-video-play-btn">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(255, 255, 255, 0.95)"/>
+                    <path d="M26 20L42 32L26 44V20Z" fill="var(--blue)"/>
+                  </svg>
+                </div>
+                <div class="integration-video-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="integration-video-info">
+                <h3 class="integration-video-title">Mindray CAL 8000</h3>
+                <p class="integration-video-desc">Tam otomatik hematoloji ve kimya entegrasyon sistemi</p>
               </div>
             </article>
-            <article class="video-accordion-item">
-              <button class="video-accordion-button" type="button" aria-expanded="false">
-                <span class="video-accordion-title">Mindray SAL Series</span>
-                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="video-accordion-content" hidden>
-                <video controls>
-                  <source src="entegrasyon/Mindray%20SAL%20Series%20Introduction_2.mp4" type="video/mp4">
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+            <article class="integration-video-card" data-video="entegrasyon/Mindray%20SAL%20Series%20Introduction_2.mp4">
+              <div class="integration-video-thumbnail">
+                <div class="integration-video-overlay"></div>
+                <div class="integration-video-play-btn">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(255, 255, 255, 0.95)"/>
+                    <path d="M26 20L42 32L26 44V20Z" fill="var(--blue)"/>
+                  </svg>
+                </div>
+                <div class="integration-video-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="integration-video-info">
+                <h3 class="integration-video-title">Mindray SAL Series</h3>
+                <p class="integration-video-desc">Entegre kimya ve immünoassay analiz sistemleri</p>
               </div>
             </article>
-            <article class="video-accordion-item">
-              <button class="video-accordion-button" type="button" aria-expanded="false">
-                <span class="video-accordion-title">SAL 9000</span>
-                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="video-accordion-content" hidden>
-                <video controls>
-                  <source src="entegrasyon/SAL%209000%20Integrated%20Chemistry%20and%20Immunoassay%20System.mp4" type="video/mp4">
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+            <article class="integration-video-card" data-video="entegrasyon/SAL%209000%20Integrated%20Chemistry%20and%20Immunoassay%20System.mp4">
+              <div class="integration-video-thumbnail">
+                <div class="integration-video-overlay"></div>
+                <div class="integration-video-play-btn">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(255, 255, 255, 0.95)"/>
+                    <path d="M26 20L42 32L26 44V20Z" fill="var(--blue)"/>
+                  </svg>
+                </div>
+                <div class="integration-video-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="integration-video-info">
+                <h3 class="integration-video-title">SAL 9000</h3>
+                <p class="integration-video-desc">Yüksek hacimli entegre kimya ve immünoassay sistemi</p>
               </div>
             </article>
-            <article class="video-accordion-item">
-              <button class="video-accordion-button" type="button" aria-expanded="false">
-                <span class="video-accordion-title">M1000 Integrated System</span>
-                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="video-accordion-content" hidden>
-                <video controls>
-                  <source src="entegrasyon/M1000%20Integrated%20System_%20Expanding%20your%20possibilities%20with%20just%204.5m%C2%B2.mp4" type="video/mp4">
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+            <article class="integration-video-card" data-video="entegrasyon/M1000%20Integrated%20System_%20Expanding%20your%20possibilities%20with%20just%204.5m%C2%B2.mp4">
+              <div class="integration-video-thumbnail">
+                <div class="integration-video-overlay"></div>
+                <div class="integration-video-play-btn">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(255, 255, 255, 0.95)"/>
+                    <path d="M26 20L42 32L26 44V20Z" fill="var(--blue)"/>
+                  </svg>
+                </div>
+                <div class="integration-video-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="integration-video-info">
+                <h3 class="integration-video-title">M1000 Integrated System</h3>
+                <p class="integration-video-desc">Sadece 4.5m² ile genişleyen olanaklar</p>
               </div>
             </article>
-            <article class="video-accordion-item">
-              <button class="video-accordion-button" type="button" aria-expanded="false">
-                <span class="video-accordion-title">Mindray MT8000</span>
-                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="video-accordion-content" hidden>
-                <video controls>
-                  <source src="entegrasyon/MT8000%20Mindray_%20Automatizaci%C3%B3n%20Total%20para%20Laboratorios%20Inteligentes%20_%20Tecnolog%C3%ADa%20M%C3%A9dica%20Avanzada.mp4" type="video/mp4">
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+            <article class="integration-video-card" data-video="entegrasyon/MT8000%20Mindray_%20Automatizaci%C3%B3n%20Total%20para%20Laboratorios%20Inteligentes%20_%20Tecnolog%C3%ADa%20M%C3%A9dica%20Avanzada.mp4">
+              <div class="integration-video-thumbnail">
+                <div class="integration-video-overlay"></div>
+                <div class="integration-video-play-btn">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(255, 255, 255, 0.95)"/>
+                    <path d="M26 20L42 32L26 44V20Z" fill="var(--blue)"/>
+                  </svg>
+                </div>
+                <div class="integration-video-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="integration-video-info">
+                <h3 class="integration-video-title">Mindray MT8000</h3>
+                <p class="integration-video-desc">Akıllı laboratuvarlar için tam otomasyon çözümü</p>
               </div>
             </article>
-            <article class="video-accordion-item">
-              <button class="video-accordion-button" type="button" aria-expanded="false">
-                <span class="video-accordion-title">Mindray CL 2600i</span>
-                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="video-accordion-content" hidden>
-                <video controls>
-                  <source src="entegrasyon/Mindray%20CL%202600i.mp4" type="video/mp4">
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+            <article class="integration-video-card" data-video="entegrasyon/Mindray%20CL%202600i.mp4">
+              <div class="integration-video-thumbnail">
+                <div class="integration-video-overlay"></div>
+                <div class="integration-video-play-btn">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(255, 255, 255, 0.95)"/>
+                    <path d="M26 20L42 32L26 44V20Z" fill="var(--blue)"/>
+                  </svg>
+                </div>
+                <div class="integration-video-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="integration-video-info">
+                <h3 class="integration-video-title">Mindray CL 2600i</h3>
+                <p class="integration-video-desc">Orta hacimli kemilüminesans immünoassay analizörü</p>
               </div>
             </article>
-            <article class="video-accordion-item">
-              <button class="video-accordion-button" type="button" aria-expanded="false">
-                <span class="video-accordion-title">CAL 6000</span>
-                <svg class="video-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div class="video-accordion-content" hidden>
-                <video controls>
-                  <source src="entegrasyon/CAL%206000%20Bench-top%20Cellular%20Analysis%20Line%20-%20Hematology%20Automation%20within%20Reach.mp4" type="video/mp4">
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+            <article class="integration-video-card" data-video="entegrasyon/CAL%206000%20Bench-top%20Cellular%20Analysis%20Line%20-%20Hematology%20Automation%20within%20Reach.mp4">
+              <div class="integration-video-thumbnail">
+                <div class="integration-video-overlay"></div>
+                <div class="integration-video-play-btn">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(255, 255, 255, 0.95)"/>
+                    <path d="M26 20L42 32L26 44V20Z" fill="var(--blue)"/>
+                  </svg>
+                </div>
+                <div class="integration-video-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="integration-video-info">
+                <h3 class="integration-video-title">CAL 6000</h3>
+                <p class="integration-video-desc">Hematoloji otomasyonu için masaüstü hücre analiz hattı</p>
               </div>
             </article>
           </div>
         </div>
       </section>
+
+      <!-- Video Modal -->
+      <div id="video-modal" class="video-modal" aria-hidden="true" role="dialog">
+        <div class="video-modal-overlay"></div>
+        <div class="video-modal-content">
+          <button class="video-modal-close" aria-label="Kapat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="video-modal-player">
+            <video id="modal-video" controls>
+              Tarayıcınız video oynatmayı desteklemiyor.
+            </video>
+          </div>
+        </div>
+      </div>
 
       <section class="section" aria-labelledby="latest-news-title">
         <div class="container">
