@@ -36,7 +36,7 @@ window.switchHeroCard = function(index) {
   }
 
   heroCurrentActiveIndex = index;
-  const stackOffset = 18;
+  const stackOffset = 6; // Arkadaki kartlar hafif alta biner, istif hissi
   const maxVisibleCards = 3;
 
   // Update card stack
@@ -65,7 +65,7 @@ window.switchHeroCard = function(index) {
     }
 
     const offsetY = distance * stackOffset;
-    const offsetX = (cardIndex - heroCurrentActiveIndex) * 10;
+    const offsetX = 0; // Yatay yayılma yok - kartlar arkada, tek noktada istif
     const scale = isActive ? 1 : 0.88 - (distance * 0.06);
     const opacity = isActive ? 1 : 0.65 - (distance * 0.15);
 
@@ -98,6 +98,29 @@ window.switchHeroCard = function(index) {
 };
 
 function initApp() {
+  // Modern header scroll effect for all pages
+  (function() {
+    const header = document.querySelector('.modern-header');
+    if (header) {
+      // Hero section yoksa header'ı baştan koyu yap
+      const hero = document.querySelector('.hero-ultra-modern');
+      if (!hero) {
+        header.classList.add('no-hero');
+      }
+      
+      function handleScroll() {
+        const scrollY = window.pageYOffset;
+        if (scrollY > 100) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
+    }
+  })();
+
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
 
@@ -202,6 +225,112 @@ function initApp() {
   animateStats();
   initContactForm();
   initHashNavigation();
+  initProductsScroll();
+}
+
+// Hero Coverflow functionality
+function initProductsScroll() {
+  const root = document.querySelector('.hero-coverflow');
+  if (!root) return;
+
+  const items = Array.from(root.querySelectorAll('.coverflow-item'));
+  const prevBtn = root.querySelector('.coverflow-prev');
+  const nextBtn = root.querySelector('.coverflow-next');
+
+  if (items.length === 0) return;
+
+  let active = 0;
+
+  function norm(idx) {
+    const n = items.length;
+    return ((idx % n) + n) % n;
+  }
+
+  function apply() {
+    items.forEach((el) => {
+      el.classList.remove('is-active', 'is-left-1', 'is-right-1', 'is-left-2', 'is-right-2', 'is-hidden');
+    });
+
+    const a = norm(active);
+    const l1 = norm(active - 1);
+    const r1 = norm(active + 1);
+    const l2 = norm(active - 2);
+    const r2 = norm(active + 2);
+
+    items[a].classList.add('is-active');
+    if (items[l1]) items[l1].classList.add('is-left-1');
+    if (items[r1]) items[r1].classList.add('is-right-1');
+    if (items[l2]) items[l2].classList.add('is-left-2');
+    if (items[r2]) items[r2].classList.add('is-right-2');
+
+    // hide others
+    items.forEach((el, i) => {
+      if (![a, l1, r1, l2, r2].includes(i)) {
+        el.classList.add('is-hidden');
+      }
+    });
+  }
+
+  function go(delta) {
+    active = norm(active + delta);
+    apply();
+  }
+
+  items.forEach((el) => {
+    el.addEventListener('click', () => {
+      const idx = Number(el.getAttribute('data-index'));
+      if (!Number.isNaN(idx)) {
+        active = norm(idx);
+        apply();
+      }
+    });
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+
+  // Keyboard support when focused in hero
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+
+  // Initial state
+  apply();
+
+  // Auto-rotate
+  let autoTimer = null;
+  let isPaused = false;
+
+  function startAuto() {
+    if (autoTimer) return;
+    autoTimer = setInterval(() => {
+      if (!isPaused) go(1);
+    }, 3500);
+  }
+
+  function stopAuto() {
+    if (!autoTimer) return;
+    clearInterval(autoTimer);
+    autoTimer = null;
+  }
+
+  // Pause on hover/focus, resume on leave/blur
+  root.addEventListener('mouseenter', () => { isPaused = true; });
+  root.addEventListener('mouseleave', () => { isPaused = false; });
+  root.addEventListener('focusin', () => { isPaused = true; });
+  root.addEventListener('focusout', () => { isPaused = false; });
+
+  // If user clicks nav/buttons, briefly pause then resume
+  const userPause = () => {
+    isPaused = true;
+    setTimeout(() => { isPaused = false; }, 2500);
+  };
+  if (prevBtn) prevBtn.addEventListener('click', userPause);
+  if (nextBtn) nextBtn.addEventListener('click', userPause);
+  items.forEach((el) => el.addEventListener('click', userPause));
+
+  startAuto();
 }
 
 // Hash navigation ve scroll pozisyonu düzeltme
@@ -1017,11 +1146,18 @@ function initHeroSlideshow() {
       card.className = `floating-card product-card card-${index + 1}`;
       card.setAttribute('data-product-index', index);
       
-      // Kartlar merkeze yerleştirilecek, stack yapısı JavaScript'te ayarlanacak
-      card.style.left = '50%';
+      // Kart boyutlarını daha da küçült ve daha sağa al
+      const cardWidth = 150;
+      const cardHeight = 125;
+
+      card.style.width = cardWidth + 'px';
+      card.style.height = cardHeight + 'px';
+
+      // Yazılardan tamamen uzak durması için kartların merkezini daha sağa taşı
+      card.style.left = '72%';
       card.style.top = '50%';
-      card.style.marginLeft = '-190px'; // Kart genişliğinin yarısı (380px / 2)
-      card.style.marginTop = '-155px'; // Kart yüksekliğinin yarısı (310px / 2) - merkeze hizala
+      card.style.marginLeft = -(cardWidth / 2) + 'px';
+      card.style.marginTop = -(cardHeight / 2) + 'px';
       
       card.innerHTML = `
         <div class="card-image-wrapper">
@@ -1054,7 +1190,7 @@ function initHeroSlideshow() {
 
     // Modern Card Stack - kartlar üst üste, en üstteki öne çıkar
     let currentActiveIndex = 0;
-    const stackOffset = 18; // Her kart arası offset
+    const stackOffset = 6; // Arkadaki kartlar hafif alta biner, istif hissi
     const maxVisibleCards = 3; // Maksimum görünen kart sayısı
     
     // Aktif index'i dışarıdan set etme fonksiyonu
@@ -1098,9 +1234,9 @@ function initHeroSlideshow() {
           card.classList.remove('active');
         }
         
-        // Pozisyon: kartlar üst üste, aktif kart önde - static, smooth transitions
+        // Pozisyon: tüm kartlar AYNI noktada arkada - sadece öndeki görünsün, yelpaze yok
         const offsetY = distance * stackOffset;
-        const offsetX = (index - currentActiveIndex) * 10;
+        const offsetX = 0; // Yatay yayılma yok - kartlar arkada istif
         const scale = isActive ? 1 : 0.88 - (distance * 0.06);
         const opacity = isActive ? 1 : 0.65 - (distance * 0.15);
         

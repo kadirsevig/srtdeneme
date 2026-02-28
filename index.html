@@ -10,10 +10,10 @@
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap&subset=latin,latin-ext"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800;900&display=swap&subset=latin,latin-ext"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=5.0" />
+    <link rel="stylesheet" href="css/styles.css?v=6.0" />
     <script src="js/main.js?v=4.4" defer></script>
     <script src="js/hero-slider.js" defer></script>
     <script src="js/news-data.js" defer></script>
@@ -21,7 +21,6 @@
     <noscript>
       <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
-        .hero-home { min-height: 100vh; }
       </style>
     </noscript>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -30,6 +29,7 @@
   </head>
   <body style="scroll-behavior: smooth;">
     <a class="skip-link" href="#main">İçeriğe geç</a>
+    
     <!-- Loading Animation -->
     <div class="page-loader" id="page-loader">
       <div class="loader-content">
@@ -39,12 +39,11 @@
         <div class="loader-spinner"></div>
       </div>
     </div>
-    <header class="site-header" id="top">
+
+    <!-- Modern Header -->
+    <header class="site-header modern-header" id="top">
       <div class="container header-inner">
-        <a class="brand" href="index.html" aria-label="SRT Medikal Anasayfa">
-          <img src="logo.png" alt="SRT Medikal Logo" class="brand-mark" />
-        </a>
-        <nav class="primary-nav" aria-label="Ana menü">
+        <nav class="primary-nav primary-nav-centered" aria-label="Ana menü">
           <button
             class="nav-toggle"
             type="button"
@@ -57,186 +56,204 @@
             <span class="visually-hidden">Menüyü Aç/Kapat</span>
           </button>
           <ul class="nav-links" id="nav-links" aria-expanded="false">
-            <li><a class="is-active" href="index.html" data-hero-image="0">Anasayfa</a></li>
-            <li><a href="kurumsal.html" data-hero-image="1">Kurumsal</a></li>
-            <li><a href="urunler.html" data-hero-image="2">Ürünler</a></li>
-            <li><a href="referanslar.html" data-hero-image="3">Referanslar</a></li>
+            <li><a class="is-active" href="index.html">Anasayfa</a></li>
+            <li><a href="kurumsal.html">Kurumsal</a></li>
+            <li><a href="urunler.html">Ürünler</a></li>
+            <li><a href="referanslar.html">Referanslar</a></li>
             <li><a href="haberler.html">Haberler</a></li>
-            <li><a href="iletisim.html" data-hero-image="4">İletişim</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
     <main id="main">
-      <section class="hero-slider" aria-labelledby="hero-title">
-        <div class="hero-slides">
-          <!-- Slide 1 -->
-          <div class="hero-slide active" style="background-image: url('https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/hematology/medium-test-volume/bc-6000/glp18-s3.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Hematoloji Çözümleri</h1>
-              <p class="hero-slide-text">Mindray BC-6000 ile 6-diff CBC ve NRBC ölçümü. Yoğun laboratuvarlar için yüksek verimlilik ve güvenilirlik.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 2 -->
-          <div class="hero-slide hero-slide-blood-gas" style="background-image: url('https://bimedis.com/img/vimg/3958293/original');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Kan Gazı Analiz Sistemleri</h1>
-              <p class="hero-slide-text">Stat Profile Prime Plus ile 90 saniyede kapsamlı kritik bakım paneli. Otomatik sıvı QC desteği ile kesintisiz operasyon.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 3 -->
-          <div class="hero-slide" style="background-image: url('https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Biyokimya Analiz Platformları</h1>
-              <p class="hero-slide-text">Mindray BS-600M ile modüler tasarım ve düşük reaktif tüketimi. Verimli laboratuvar operasyonları için ideal çözüm.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 4 -->
-          <div class="hero-slide" style="background-image: url('https://static.wixstatic.com/media/48ddcc_31ad8bd85962411aba14ca8b6271fc6b~mv2.jpg/v1/crop/x_0,y_85,w_2560,h_1429/fill/w_1210,h_678,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/TRIchem-FRONT.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">İdrar Analiz Çözümleri</h1>
-              <p class="hero-slide-text">Tam otomatik idrar mikroskopisi ve kimyasal analiz sistemleri. Hızlı ve güvenilir sonuçlar için gelişmiş teknoloji.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Slide 5 -->
-          <div class="hero-slide" style="background-image: url('https://www.succeeder.com/uploads/SF9200_20220713095902.jpg');">
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-              <h1 class="hero-slide-title">Koagülasyon Analizörleri</h1>
-              <p class="hero-slide-text">Succeeder SF-9200 ile tam otomatik pıhtılaşma analizi. Büyük düzey laboratuvarlar için yüksek kapasiteli sistem ve geniş test menüsü.</p>
-              <div class="hero-slide-actions">
-                <a href="urunler.html" class="btn-slide btn-primary-slide">Ürünleri Keşfet</a>
-                <a href="iletisim.html" class="btn-slide btn-outline-slide">Demo Talep Et</a>
-              </div>
-            </div>
-          </div>
+      <!-- Ultra Modern Hero Section -->
+      <section class="hero-ultra-modern" aria-labelledby="hero-title">
+        <div class="hero-background">
+          <div class="hero-gradient-orb orb-1"></div>
+          <div class="hero-gradient-orb orb-2"></div>
+          <div class="hero-gradient-orb orb-3"></div>
+          <div class="hero-grid-pattern"></div>
         </div>
-        
-        <!-- Navigation dots -->
-        <div class="hero-nav-dots">
-          <span class="hero-dot active" data-slide="0"></span>
-          <span class="hero-dot" data-slide="1"></span>
-          <span class="hero-dot" data-slide="2"></span>
-          <span class="hero-dot" data-slide="3"></span>
-          <span class="hero-dot" data-slide="4"></span>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator" aria-hidden="true">
-          <div class="scroll-indicator-text">Aşağı kaydır</div>
-          <div class="scroll-indicator-mouse">
-            <div class="scroll-indicator-wheel"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-products-showcase" aria-labelledby="products-showcase-title">
-        <div class="container">
-          <div class="products-showcase-header">
-            <h2 id="products-showcase-title" class="products-showcase-title">
-              <span class="title-text">Çözümlerimiz</span>
-            </h2>
-            <p class="products-showcase-lead">
-              Laboratuvar ve yoğun bakım süreçleriniz için kapsamlı teknoloji çözümleri sunuyoruz.
+        <div class="container hero-container">
+          <div class="hero-content-wrapper">
+            <div class="hero-logo-large">
+              <img src="logo.png" alt="SRT Medikal Logo" />
+            </div>
+            <h1 class="hero-title-ultra" id="hero-title">
+              <span class="title-line-1">Geleceği Şekillendiren</span>
+              <span class="title-line-2">
+                <span class="gradient-text">Laboratuvar</span>
+                <span class="gradient-text-accent">Teknolojileri</span>
+              </span>
+            </h1>
+            <p class="hero-subtitle-ultra">
+              SRT Medikal olarak, sağlık sektöründe dönüşüm yaratan laboratuvar ve yoğun bakım çözümleriyle 
+              <strong>hastane ve kliniklerinizin başarısına ortak oluyoruz</strong>. 
+              Gelişmiş teknoloji, güvenilir hizmet ve sürdürülebilir değer yaratma misyonumuzla yanınızdayız.
             </p>
           </div>
-          <div class="products-showcase-grid">
-            <a href="hemogram.html" class="product-showcase-card">
-              <div class="product-showcase-image">
-                <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/hematology/medium-test-volume/bc-6000/glp18-s3.jpg" alt="Hematoloji Çözümleri" loading="lazy" />
+          <div class="hero-visual-modern">
+            <div class="hero-coverflow" aria-label="Cihaz galerisi">
+              <button class="coverflow-nav coverflow-prev" type="button" aria-label="Önceki görsel"></button>
+              <div class="coverflow-track" role="list">
+                <button class="coverflow-item" type="button" role="listitem" data-index="0" aria-label="Hematoloji">
+                  <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/hematology/medium-test-volume/bc-6000/glp18-s3.jpg" alt="Hematoloji" loading="eager" />
+                </button>
+                <button class="coverflow-item" type="button" role="listitem" data-index="1" aria-label="Kan Gazı">
+                  <img src="https://www.novabiomedical.com/up/assets/2025/12/PrimePlus-FacngRight-1440x1100-3-1280x978.jpg" alt="Kan Gazı" loading="eager" />
+                </button>
+                <button class="coverflow-item" type="button" role="listitem" data-index="2" aria-label="Biyokimya">
+                  <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg" alt="Biyokimya" loading="eager" />
+                </button>
+                <button class="coverflow-item" type="button" role="listitem" data-index="3" aria-label="İdrar Analizörü">
+                  <img src="https://static.wixstatic.com/media/48ddcc_31ad8bd85962411aba14ca8b6271fc6b~mv2.jpg/v1/crop/x_0,y_85,w_2560,h_1429/fill/w_1210,h_678,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/TRIchem-FRONT.jpg" alt="İdrar Analizörü" loading="eager" />
+                </button>
+                <button class="coverflow-item" type="button" role="listitem" data-index="4" aria-label="Hormon">
+                  <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemiluminescence-immunoassay/large-test-volume/cl-6000i/glp60-s2.jpg" alt="Hormon" loading="eager" />
+                </button>
+                <button class="coverflow-item" type="button" role="listitem" data-index="5" aria-label="Koagülasyon">
+                  <img src="https://www.succeeder.com/uploads/SF9200_20220713095902.jpg" alt="Koagülasyon" loading="eager" />
+                </button>
               </div>
-              <div class="product-showcase-content">
-                <h3 class="product-showcase-card-title">Hematoloji Çözümleri</h3>
-                <p class="product-showcase-card-desc">Tam otomatik hematoloji analizörleri ile kan sayımı ve analiz işlemlerinizi hızlı ve güvenilir şekilde gerçekleştirin.</p>
-                <span class="product-showcase-card-link">Detayları Gör →</span>
+              <button class="coverflow-nav coverflow-next" type="button" aria-label="Sonraki görsel"></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vision Section -->
+      <section class="vision-section-modern">
+        <div class="container">
+          <div class="vision-content">
+            <div class="vision-badge">Vizyonumuz</div>
+            <h2 class="vision-title">
+              Sağlıkta <span class="gradient-text">Dönüşümün</span> Öncüsü
+            </h2>
+            <p class="vision-text">
+              Türkiye'nin önde gelen laboratuvar teknoloji distribütörü olarak, 
+              sağlık kuruluşlarının operasyonel mükemmelliğe ulaşmasına katkı sağlıyoruz. 
+              İnovasyon, güvenilirlik ve müşteri odaklı yaklaşımımızla sektörde fark yaratıyoruz.
+            </p>
+            <div class="vision-pillars">
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <h3>İnovasyon</h3>
+                <p>En son teknolojileri sektöre kazandırıyoruz</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </div>
+                <h3>Güvenilirlik</h3>
+                <p>Kesintisiz hizmet ve teknik destek garantisi</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <h3>Müşteri Odaklılık</h3>
+                <p>Her adımda yanınızda olan güvenilir partner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Products Showcase Modern -->
+      <section class="section-products-ultra" aria-labelledby="products-showcase-title">
+        <div class="container">
+          <div class="section-header-ultra">
+            <div class="section-badge">Çözümlerimiz</div>
+            <h2 id="products-showcase-title" class="section-title-ultra">
+              Kapsamlı <span class="gradient-text">Teknoloji</span> Portföyü
+            </h2>
+            <p class="section-lead-ultra">
+              Laboratuvar ve yoğun bakım süreçleriniz için endüstri lideri çözümler sunuyoruz.
+            </p>
+          </div>
+          <div class="products-masonry-showcase">
+            <a href="hemogram.html" class="masonry-card card-large">
+              <div class="masonry-card-bg"></div>
+              <div class="masonry-card-content">
+                <h3 class="masonry-title">Hematoloji Çözümleri</h3>
+                <p class="masonry-desc">Tam otomatik hematoloji analizörleri ile kan sayımı ve analiz işlemlerinizi hızlı ve güvenilir şekilde gerçekleştirin.</p>
+                <div class="masonry-link">Detaylar →</div>
               </div>
             </a>
-            <a href="kangazi.html" class="product-showcase-card">
-              <div class="product-showcase-image">
-                <img src="https://bimedis.com/img/vimg/3958293/original" alt="Kan Gazı Çözümleri" loading="lazy" />
-              </div>
-              <div class="product-showcase-content">
-                <h3 class="product-showcase-card-title">Kan Gazı Çözümleri</h3>
-                <p class="product-showcase-card-desc">Kritik bakım ünitelerinde hızlı ve hassas kan gazı analizi için gelişmiş teknoloji çözümleri.</p>
-                <span class="product-showcase-card-link">Detayları Gör →</span>
-              </div>
-            </a>
-            <a href="biyokimya.html" class="product-showcase-card">
-              <div class="product-showcase-image">
-                <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemistry/medium-test-volume/bs-600m/bs-600m-fig2-pc.jpg" alt="Biyokimya Çözümleri" loading="lazy" />
-              </div>
-              <div class="product-showcase-content">
-                <h3 class="product-showcase-card-title">Biyokimya Çözümleri</h3>
-                <p class="product-showcase-card-desc">Geniş test paneli ve yüksek verimlilik sunan biyokimya analizörleri ile laboratuvar iş akışınızı optimize edin.</p>
-                <span class="product-showcase-card-link">Detayları Gör →</span>
+            
+            <a href="kangazi.html" class="masonry-card card-medium">
+              <div class="masonry-card-bg"></div>
+              <div class="masonry-card-content">
+                <h3 class="masonry-title">Kan Gazı Çözümleri</h3>
+                <p class="masonry-desc">Kritik bakım ünitelerinde hızlı ve hassas kan gazı analizi için gelişmiş teknoloji çözümleri.</p>
+                <div class="masonry-link">Detaylar →</div>
               </div>
             </a>
-            <a href="idraranalizor.html" class="product-showcase-card">
-              <div class="product-showcase-image">
-                <img src="https://static.wixstatic.com/media/48ddcc_31ad8bd85962411aba14ca8b6271fc6b~mv2.jpg/v1/crop/x_0,y_85,w_2560,h_1429/fill/w_1210,h_678,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/TRIchem-FRONT.jpg" alt="İdrar Analizörü Çözümleri" loading="lazy" />
-              </div>
-              <div class="product-showcase-content">
-                <h3 class="product-showcase-card-title">İdrar Analizörü Çözümleri</h3>
-                <p class="product-showcase-card-desc">Tam otomatik idrar analiz sistemleri ile rutin idrar testlerinizi verimli ve güvenilir şekilde yürütün.</p>
-                <span class="product-showcase-card-link">Detayları Gör →</span>
-              </div>
-            </a>
-            <a href="kemiluminesans.html" class="product-showcase-card">
-              <div class="product-showcase-image">
-                <img src="https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laboratory-diagnostics/chemiluminescence-immunoassay/large-test-volume/cl-6000i/glp60-s2.jpg" alt="Hormon Çözümleri" loading="lazy" />
-              </div>
-              <div class="product-showcase-content">
-                <h3 class="product-showcase-card-title">Hormon Çözümleri</h3>
-                <p class="product-showcase-card-desc">Kemilüminesans immünoassay teknolojisi ile hassas hormon ve tümör belirteç analizleri.</p>
-                <span class="product-showcase-card-link">Detayları Gör →</span>
+            
+            <a href="biyokimya.html" class="masonry-card card-small">
+              <div class="masonry-card-bg"></div>
+              <div class="masonry-card-content">
+                <h3 class="masonry-title">Biyokimya Çözümleri</h3>
+                <p class="masonry-desc">Geniş test paneli ve yüksek verimlilik sunan biyokimya analizörleri.</p>
+                <div class="masonry-link">Detaylar →</div>
               </div>
             </a>
-            <a href="koagulasyon.html" class="product-showcase-card">
-              <div class="product-showcase-image">
-                <img src="https://www.succeeder.com/uploads/SF9200_20220713095902.jpg" alt="Koagülasyon Analizörleri" loading="lazy" />
+            
+            <a href="idraranalizor.html" class="masonry-card card-medium">
+              <div class="masonry-card-bg"></div>
+              <div class="masonry-card-content">
+                <h3 class="masonry-title">İdrar Analizörü</h3>
+                <p class="masonry-desc">Tam otomatik idrar analiz sistemleri ile rutin idrar testlerinizi verimli ve güvenilir şekilde yürütün.</p>
+                <div class="masonry-link">Detaylar →</div>
               </div>
-              <div class="product-showcase-content">
-                <h3 class="product-showcase-card-title">Koagülasyon Analizörleri</h3>
-                <p class="product-showcase-card-desc">Pıhtılaşma bozukluklarının teşhisi ve takibi için gelişmiş koagülasyon analiz sistemleri.</p>
-                <span class="product-showcase-card-link">Detayları Gör →</span>
+            </a>
+            
+            <a href="kemiluminesans.html" class="masonry-card card-small">
+              <div class="masonry-card-bg"></div>
+              <div class="masonry-card-content">
+                <h3 class="masonry-title">Hormon Çözümleri</h3>
+                <p class="masonry-desc">Kemilüminesans immünoassay teknolojisi ile hassas hormon analizleri.</p>
+                <div class="masonry-link">Detaylar →</div>
+              </div>
+            </a>
+            
+            <a href="koagulasyon.html" class="masonry-card card-large">
+              <div class="masonry-card-bg"></div>
+              <div class="masonry-card-content">
+                <h3 class="masonry-title">Koagülasyon Analizörleri</h3>
+                <p class="masonry-desc">Pıhtılaşma bozukluklarının teşhisi ve takibi için gelişmiş koagülasyon analiz sistemleri.</p>
+                <div class="masonry-link">Detaylar →</div>
               </div>
             </a>
           </div>
         </div>
       </section>
 
-      <section class="section section-integration-modern" aria-labelledby="integration-title">
+      <!-- Integration Videos Section -->
+      <section class="section-integration-modern" aria-labelledby="integration-title">
         <div class="container">
-          <div class="integration-header">
-            <h2 id="integration-title" class="integration-title">
-              <span class="title-text">Entegrasyon Cihazlarımız</span>
+          <div class="section-header-ultra">
+            <div class="section-badge">Entegrasyon</div>
+            <h2 id="integration-title" class="section-title-ultra">
+              Laboratuvar <span class="gradient-text">Otomasyon</span> Sistemleri
             </h2>
-            <p class="integration-lead">
+            <p class="section-lead-ultra">
               Laboratuvar otomasyon çözümlerimiz hakkında detaylı bilgi almak için videolarımızı inceleyebilirsiniz.
             </p>
           </div>
@@ -402,13 +419,15 @@
         </div>
       </div>
 
+      <!-- Latest News Section -->
       <section class="section" aria-labelledby="latest-news-title">
         <div class="container">
-          <div class="news-header-home">
-            <h2 id="latest-news-title" class="news-title-home">
-              <span class="title-text">Son Haberler</span>
+          <div class="section-header-ultra">
+            <div class="section-badge">Haberler</div>
+            <h2 id="latest-news-title" class="section-title-ultra">
+              Son <span class="gradient-text">Gelişmeler</span>
             </h2>
-            <p class="news-lead-home">
+            <p class="section-lead-ultra">
               SRT Medikal'den güncel haberler, etkinlikler ve laboratuvar çözümlerindeki gelişmeler.
             </p>
           </div>
@@ -422,17 +441,25 @@
         </div>
       </section>
 
+      <!-- Partners Section -->
       <section class="section" aria-labelledby="partners-title">
         <div class="container">
-          <div class="partners-header">
-            <h2 id="partners-title" class="partners-title">
-              <span class="title-text">İş Ortaklarımız</span>
+          <div class="section-header-ultra">
+            <div class="section-badge">İş Ortaklarımız</div>
+            <h2 id="partners-title" class="section-title-ultra">
+              Güçlü <span class="gradient-text">İş Birlikleri</span>
             </h2>
-            <p class="partners-lead">
+            <p class="section-lead-ultra">
               Global üretici markalarla iş birliği yaparak klinik süreçlerinizde güvenilir ve yenilikçi çözümler sunuyoruz.
             </p>
           </div>
           <div class="partner-logos">
+            <div class="partner-logo-card">
+              <img
+                src="iş/images.png"
+                alt="Mindray"
+              />
+            </div>
             <div class="partner-logo-card">
               <img
                 src="iş/53e14ddc-0109-0039-a057-657b97b1da42.jpg"
@@ -447,12 +474,6 @@
             </div>
             <div class="partner-logo-card">
               <img
-                src="iş/images.png"
-                alt="İş ortağı logosu 3"
-              />
-            </div>
-            <div class="partner-logo-card">
-              <img
                 src="iş/logo_new.webp"
                 alt="İş ortağı logosu 4"
               />
@@ -461,20 +482,22 @@
         </div>
       </section>
 
-      <section class="section section-light" aria-labelledby="support-title">
+      <!-- Advantages Section -->
+      <section class="advantages-section-modern">
         <div class="container">
-          <div class="advantages-header">
-            <h2 id="support-title" class="advantages-title">
-              <span class="title-text">SRT Medikal Avantajları</span>
+          <div class="section-header-ultra">
+            <div class="section-badge">Avantajlarımız</div>
+            <h2 class="section-title-ultra">
+              Neden <span class="gradient-text">SRT Medikal?</span>
             </h2>
-            <p class="advantages-lead">
+            <p class="section-lead-ultra">
               Satış sonrası süreçlerinizde hız ve güvenilirlik sağlayan hizmet yaklaşımımız.
             </p>
           </div>
-          <div class="info-columns">
-            <article class="info-card">
-              <div class="info-card-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div class="advantages-grid-modern">
+            <article class="advantage-card-modern">
+              <div class="advantage-icon-modern">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -486,9 +509,9 @@
                 yedek cihaz temini sağlıyoruz.
               </p>
             </article>
-            <article class="info-card">
-              <div class="info-card-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <article class="advantage-card-modern">
+              <div class="advantage-icon-modern">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
                   <path d="M21 16V8C20.9996 7.64928 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64928 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M3.27 6.96L12 12.01L20.73 6.96" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -500,9 +523,9 @@
                 devreye alma süresini kısaltıyoruz.
               </p>
             </article>
-            <article class="info-card">
-              <div class="info-card-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <article class="advantage-card-modern">
+              <div class="advantage-icon-modern">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
                   <path d="M12 14C15.3137 14 18 11.3137 18 8C18 4.68629 15.3137 2 12 2C8.68629 2 6 4.68629 6 8C6 11.3137 8.68629 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M4.27 19C4.08724 19.3031 3.97851 19.6457 3.951 20C3.97851 20.3543 4.08724 20.6969 4.27 21C4.45276 21.3031 4.70547 21.5568 5.00882 21.7396C5.31217 21.9223 5.65676 22.0291 6.011 22.05C6.36524 22.0709 6.71839 22.0062 7.043 21.86H16.957C17.2816 22.0062 17.6348 22.0709 17.989 22.05C18.3432 22.0291 18.6878 21.9223 18.9912 21.7396C19.2945 21.5568 19.5472 21.3031 19.73 21C19.9128 20.6969 20.0215 20.3543 20.049 20C20.0215 19.6457 19.9128 19.3031 19.73 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -518,6 +541,7 @@
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <div class="footer-top">
@@ -551,42 +575,55 @@
         </div>
       </div>
     </footer>
+
     <script>
-      // Mobil menü için inline script - güvenilir çalışması için
+      // Header scroll effect - hero ile entegre
+      (function() {
+        const header = document.querySelector('.modern-header');
+        const hero = document.querySelector('.hero-ultra-modern');
+        
+        if (header && hero) {
+          function handleScroll() {
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+            const scrollY = window.pageYOffset;
+            
+            if (scrollY > 100) {
+              header.classList.add('scrolled');
+            } else {
+              header.classList.remove('scrolled');
+            }
+          }
+          
+          window.addEventListener('scroll', handleScroll);
+          handleScroll(); // Initial check
+        }
+      })();
+
+      // Mobil menü için inline script
       (function() {
         function initMobileMenu() {
           const navToggle = document.querySelector('.nav-toggle');
           const navLinks = document.querySelector('.nav-links');
           
-          if (!navToggle || !navLinks) {
-            console.log('Menu elements not found');
-            return;
-          }
-          
-          console.log('Menu elements found, setting up listeners');
+          if (!navToggle || !navLinks) return;
           
           navToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Menu button clicked');
             
             const isOpen = navLinks.classList.contains('is-open');
-            console.log('Current state:', isOpen);
             
             if (isOpen) {
               navLinks.classList.remove('is-open');
               navToggle.setAttribute('aria-expanded', 'false');
               navLinks.setAttribute('aria-expanded', 'false');
-              console.log('Menu closed');
             } else {
               navLinks.classList.add('is-open');
               navToggle.setAttribute('aria-expanded', 'true');
               navLinks.setAttribute('aria-expanded', 'true');
-              console.log('Menu opened');
             }
           });
           
-          // Linklere tıklandığında menüyü kapat
           navLinks.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function() {
               navLinks.classList.remove('is-open');
@@ -596,18 +633,78 @@
           });
         }
         
-        // DOM yüklendiğinde çalıştır
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', initMobileMenu);
         } else {
           initMobileMenu();
         }
         
-        // Ek güvenlik için kısa bir gecikme ile de çalıştır
         setTimeout(initMobileMenu, 100);
+      })();
+
+      // Statistics counter removed
+
+      // Smooth Scroll Animations for Sections
+      (function() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, observerOptions);
+
+        // Observe all sections
+        const sections = document.querySelectorAll('.vision-section-modern, .section-products-ultra, .advantages-section-modern, .section');
+        sections.forEach(section => {
+          section.style.opacity = '0';
+          section.style.transform = 'translateY(30px)';
+          section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+          observer.observe(section);
+        });
+
+        // Observe product cards
+        const productCards = document.querySelectorAll('.product-card-ultra, .pillar-card, .advantage-card-modern');
+        productCards.forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(30px)';
+          card.style.transition = `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`;
+          observer.observe(card);
+        });
+      })();
+
+      // Parallax effect for hero orbs
+      (function() {
+        let ticking = false;
+        
+        function updateParallax() {
+          const scrolled = window.pageYOffset;
+          const orbs = document.querySelectorAll('.hero-gradient-orb');
+          
+          orbs.forEach((orb, index) => {
+            const speed = (index + 1) * 0.5;
+            const yPos = -(scrolled * speed);
+            orb.style.transform = `translateY(${yPos}px)`;
+          });
+          
+          ticking = false;
+        }
+        
+        function requestTick() {
+          if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+          }
+        }
+        
+        window.addEventListener('scroll', requestTick);
       })();
     </script>
   </body>
 </html>
-
-
