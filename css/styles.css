@@ -2240,7 +2240,7 @@ a {
 
 
 .page-hero.general {
-  padding: 80px 0 60px;
+  padding: 100px 0 70px;
   background: linear-gradient(180deg, var(--gray-050) 0%, #ffffff 100%);
   position: relative;
   overflow: hidden;
@@ -3025,7 +3025,7 @@ a {
   margin-right: auto;
 }
 .page-hero.compact {
-  padding: 60px 0 40px;
+  padding: 80px 0 48px;
   background: linear-gradient(180deg, var(--gray-050) 0%, #ffffff 100%);
   position: relative;
   overflow: hidden;
@@ -3216,9 +3216,24 @@ a {
   padding: 60px 0;
 }
 
+/* Header altındaki ilk section'a ekstra üst boşluk */
+main > .section:first-child {
+  padding-top: 80px;
+}
+
 @media (max-width: 768px) {
-.section {
-  padding: 40px 0;
+  .section {
+    padding: 40px 0;
+  }
+
+  main > .section:first-child {
+    padding-top: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  main > .section:first-child {
+    padding-top: 44px;
   }
 }
 
@@ -5731,6 +5746,14 @@ textarea {
 }
 
 @media (max-width: 768px) {
+  .page-hero.general {
+    padding: 70px 0 48px;
+  }
+
+  .page-hero.compact {
+    padding: 60px 0 36px;
+  }
+
   .page-hero.general .hero-inner h1,
   .page-hero.compact .hero-inner h1 {
     margin-bottom: 16px;
@@ -5739,6 +5762,16 @@ textarea {
   
   .page-hero.general .hero-inner p {
     font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-hero.general {
+    padding: 56px 0 36px;
+  }
+
+  .page-hero.compact {
+    padding: 48px 0 28px;
   }
 }
 
