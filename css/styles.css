@@ -829,7 +829,7 @@ a {
   }
   
   .hero-badge-new {
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     padding: 8px 14px;
     background: linear-gradient(135deg, rgba(0, 135, 212, 0.25) 0%, rgba(99, 102, 241, 0.2) 100%);
     border: 1px solid rgba(0, 135, 212, 0.35);
@@ -899,7 +899,7 @@ a {
   }
   
   .stat-label-modern {
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     color: rgba(255, 255, 255, 0.85);
   }
   
@@ -935,7 +935,7 @@ a {
   }
   
   .hero-badge-new {
-    font-size: 0.68rem;
+    font-size: 0.78rem;
     padding: 6px 12px;
     margin-bottom: 16px;
   }
@@ -974,7 +974,7 @@ a {
   }
   
   .stat-label-modern {
-    font-size: 0.68rem;
+    font-size: 0.78rem;
   }
 }
 
@@ -1526,7 +1526,7 @@ a {
   overflow: hidden;
   white-space: nowrap;
   letter-spacing: 0.02em;
-  min-height: 42px;
+  min-height: 44px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(0, 135, 212, 0.2);
 }
@@ -3812,12 +3812,12 @@ a {
   
   .product-box-subtitle {
     padding: 0 12px;
-    font-size: 0.72rem;
+    font-size: 0.82rem;
   }
   
   .product-box-link {
     padding: 6px 12px 12px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
   
   .product-box-link::before {
@@ -3986,14 +3986,20 @@ a {
 
 @media (max-width: 768px) {
   .product-detail-media img {
-    padding: 32px;
+    padding: 20px;
   }
 }
 
 @media (max-width: 640px) {
   .product-detail-media img {
-    padding: 24px;
+    padding: 14px;
     border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-detail-media img {
+    padding: 10px;
   }
 }
 
@@ -9163,18 +9169,35 @@ img.image-error {
     width: min(420px, 98vw);
   }
   .coverflow-nav {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
   .coverflow-item {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     border-radius: 22px;
   }
   .coverflow-item.is-left-1 { transform: translateZ(30px) scale(0.96); }
   .coverflow-item.is-right-1 { transform: translateZ(30px) scale(0.96); }
   .coverflow-item.is-left-2 { transform: translateZ(-50px) scale(0.92); }
   .coverflow-item.is-right-2 { transform: translateZ(-50px) scale(0.92); }
+}
+
+@media (max-width: 480px) {
+  .hero-coverflow {
+    grid-template-columns: 36px 1fr 36px;
+    height: 320px;
+    width: min(360px, 98vw);
+  }
+  .coverflow-nav {
+    width: 36px;
+    height: 44px;
+  }
+  .coverflow-item {
+    width: 220px;
+    height: 220px;
+    border-radius: 18px;
+  }
 }
 
 .devices-container {
@@ -10038,4 +10061,38 @@ img.image-error {
   }
 }
 
+/* ===== Touch Device Fixes ===== */
+/* Hover durumlarının dokunmatik cihazlarda "takılı kalma" sorunu */
+@media (hover: none) {
+  .model-card:hover,
+  .product-box:hover {
+    transform: none;
+    box-shadow: none;
+  }
 
+  .model-card:active {
+    transform: scale(0.97);
+  }
+
+  .product-box:active {
+    transform: scale(0.98);
+  }
+
+  /* Tooltip'i dokunmatik cihazlarda gizle (hover ile görünmüyor zaten) */
+  .product-box-tooltip {
+    display: none;
+  }
+
+  /* Hover ile açılan efektleri kapat */
+  .product-box:hover .product-box-image img {
+    transform: none;
+  }
+
+  .product-box:hover .product-box-title {
+    transform: none;
+  }
+
+  .product-box:hover::before {
+    opacity: 0;
+  }
+}

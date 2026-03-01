@@ -295,6 +295,23 @@ function initProductsScroll() {
     if (e.key === 'ArrowRight') go(1);
   });
 
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchStartY = 0;
+  root.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  root.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      go(dx < 0 ? 1 : -1);
+      isPaused = true;
+      setTimeout(() => { isPaused = false; }, 2500);
+    }
+  }, { passive: true });
+
   // Initial state
   apply();
 
