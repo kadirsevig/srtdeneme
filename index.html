@@ -42,102 +42,18 @@
                 <a href="#contact" class="btn btn-primary">HEMEN İLETİŞİME GEÇ</a>
             </div>
             <div class="hero-image">
-                <svg class="robot-illustration" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="whiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#f5f5f5;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#e8e8e8;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="dockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#f9f9f9;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#d9d9d9;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <!-- Dock Station -->
-                    <rect x="50" y="280" width="300" height="180" rx="15" fill="url(#dockGrad)" stroke="#999999" stroke-width="2"/>
-                    
-                    <!-- Dock Top Panel -->
-                    <rect x="65" y="295" width="270" height="40" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
-                    
-                    <!-- Dust Bin Section -->
-                    <rect x="85" y="350" width="100" height="90" rx="5" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="1.5"/>
-                    <line x1="135" y1="350" x2="135" y2="440" stroke="#cccccc" stroke-width="1"/>
-                    
-                    <!-- Water Tank Section -->
-                    <rect x="215" y="350" width="100" height="90" rx="5" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="1.5"/>
-                    <line x1="265" y1="350" x2="265" y2="440" stroke="#cccccc" stroke-width="1"/>
-                    
-                    <!-- Charging Connector -->
-                    <rect x="175" y="425" width="50" height="25" rx="3" fill="#FF6B35" stroke="#333333" stroke-width="1"/>
-                    <rect x="180" y="430" width="40" height="15" fill="#FF8C00"/>
-                    
-                    <!-- Robot Vacuum Body -->
-                    <circle cx="200" cy="180" r="85" fill="url(#whiteGrad)" stroke="#cccccc" stroke-width="2"/>
-                    
-                    <!-- Top White Panel -->
-                    <ellipse cx="200" cy="140" rx="80" ry="50" fill="#ffffff" stroke="#dddddd" stroke-width="1.5"/>
-                    <ellipse cx="200" cy="138" rx="80" ry="48" fill="#fafafa" opacity="0.6"/>
-                    
-                    <!-- Sensor Array (Top) -->
-                    <rect x="185" y="110" width="30" height="20" rx="3" fill="#333333" stroke="#000000" stroke-width="1"/>
-                    <circle cx="192" cy="120" r="3" fill="#FF0000" opacity="0.8"/>
-                    <circle cx="200" cy="118" r="3" fill="#FF0000" opacity="0.8"/>
-                    <circle cx="208" cy="120" r="3" fill="#FF0000" opacity="0.8"/>
-                    
-                    <!-- Cleaning Head (visible center) -->
-                    <circle cx="200" cy="180" r="75" fill="none" stroke="#e0e0e0" stroke-width="2"/>
-                    <circle cx="200" cy="180" r="65" fill="none" stroke="#cccccc" stroke-width="1" opacity="0.5" stroke-dasharray="3,3"/>
-                    
-                    <!-- Main Brush Pattern -->
-                    <circle cx="200" cy="180" r="60" fill="none" stroke="#FF6B35" stroke-width="1.5" opacity="0.4"/>
-                    <path d="M 200 120 L 200 240" stroke="#FF6B35" stroke-width="1" opacity="0.3"/>
-                    <path d="M 140 180 L 260 180" stroke="#FF6B35" stroke-width="1" opacity="0.3"/>
-                    
-                    <!-- Side Brushes -->
-                    <g transform="translate(130, 180)">
-                        <circle cx="0" cy="0" r="18" fill="#e8e8e8" stroke="#999999" stroke-width="1.5"/>
-                        <circle cx="0" cy="0" r="12" fill="#FF6B35"/>
-                        <circle cx="-4" cy="0" r="1.5" fill="#333333"/>
-                        <circle cx="4" cy="0" r="1.5" fill="#333333"/>
-                    </g>
-                    
-                    <g transform="translate(270, 180)">
-                        <circle cx="0" cy="0" r="18" fill="#e8e8e8" stroke="#999999" stroke-width="1.5"/>
-                        <circle cx="0" cy="0" r="12" fill="#FF6B35"/>
-                        <circle cx="-4" cy="0" r="1.5" fill="#333333"/>
-                        <circle cx="4" cy="0" r="1.5" fill="#333333"/>
-                    </g>
-                    
-                    <!-- Bumper Strip -->
-                    <ellipse cx="200" cy="245" rx="82" ry="18" fill="#333333" stroke="#000000" stroke-width="1"/>
-                    <path d="M 130 250 Q 125 248 125 240" stroke="#666666" stroke-width="0.5" fill="none"/>
-                    <path d="M 270 250 Q 275 248 275 240" stroke="#666666" stroke-width="0.5" fill="none"/>
-                    
-                    <!-- Wheels -->
-                    <g transform="translate(130, 245)">
-                        <circle cx="0" cy="0" r="20" fill="#1a1a1a" stroke="#333333" stroke-width="2"/>
-                        <circle cx="0" cy="0" r="13" fill="none" stroke="#666666" stroke-width="1.5"/>
-                        <circle cx="-6" cy="0" r="2" fill="#999999"/>
-                        <circle cx="6" cy="0" r="2" fill="#999999"/>
-                    </g>
-                    
-                    <g transform="translate(270, 245)">
-                        <circle cx="0" cy="0" r="20" fill="#1a1a1a" stroke="#333333" stroke-width="2"/>
-                        <circle cx="0" cy="0" r="13" fill="none" stroke="#666666" stroke-width="1.5"/>
-                        <circle cx="-6" cy="0" r="2" fill="#999999"/>
-                        <circle cx="6" cy="0" r="2" fill="#999999"/>
-                    </g>
-                    
-                    <!-- Caster Wheel -->
-                    <circle cx="200" cy="270" r="9" fill="#333333" stroke="#555555" stroke-width="1"/>
-                    <circle cx="200" cy="270" r="5" fill="#888888"/>
-                    
-                    <!-- Status Lights -->
-                    <circle cx="175" cy="155" r="4" fill="#00CC00" opacity="0.9"/>
-                    <circle cx="225" cy="155" r="4" fill="#00CC00" opacity="0.9"/>
-                </svg>
+                <div class="slider-container" id="heroSlider">
+                    <div class="slider-wrapper">
+                        <img src="resimler/425dba6274028715e967-0.webp" alt="Robot Süpürge 1" class="slide active">
+                        <img src="resimler/S8_Plus_White_ID.webp" alt="Robot Süpürge 2" class="slide">
+                        <img src="resimler/en-iyi-robot-supurge-hangisi.webp" alt="Robot Süpürge 3" class="slide">
+                    </div>
+                    <div class="slider-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -161,79 +77,18 @@
                     </div>
                 </div>
                 <div class="banner-image">
-                    <svg class="robot-icon" viewBox="0 0 300 350" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="diskGradient2" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
-                                <stop offset="70%" style="stop-color:#222222;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
-                            </radialGradient>
-                            <radialGradient id="bodyGradient2" cx="30%" cy="30%" r="70%">
-                                <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#222222;stop-opacity:1" />
-                            </radialGradient>
-                        </defs>
-                        
-                        <!-- Main Disc Body -->
-                        <circle cx="150" cy="140" r="90" fill="url(#bodyGradient2)" stroke="#1a1a1a" stroke-width="2"/>
-                        
-                        <!-- Top Panel -->
-                        <ellipse cx="150" cy="80" rx="75" ry="35" fill="#FF6B35" stroke="#333333" stroke-width="2"/>
-                        <ellipse cx="150" cy="78" rx="75" ry="32" fill="#FF8C00" opacity="0.8"/>
-                        
-                        <!-- Display Button Area -->
-                        <circle cx="150" cy="75" r="12" fill="#333333" stroke="#FF6B35" stroke-width="1"/>
-                        <circle cx="150" cy="75" r="8" fill="#00AA00"/>
-                        
-                        <!-- Center Cleaning Disc (visible inside) -->
-                        <circle cx="150" cy="140" r="75" fill="url(#diskGradient2)" opacity="0.9"/>
-                        
-                        <!-- Brush Ring Pattern -->
-                        <circle cx="150" cy="140" r="72" fill="none" stroke="#FF6B35" stroke-width="2" opacity="0.4"/>
-                        <circle cx="150" cy="140" r="60" fill="none" stroke="#FF6B35" stroke-width="1" opacity="0.3"/>
-                        
-                        <!-- Front Bumper -->
-                        <ellipse cx="150" cy="225" rx="85" ry="15" fill="#FF6B35" stroke="#333333" stroke-width="2"/>
-                        <path d="M 120 225 Q 110 220 110 215" stroke="#333333" stroke-width="1" fill="none"/>
-                        <path d="M 180 225 Q 190 220 190 215" stroke="#333333" stroke-width="1" fill="none"/>
-                        
-                        <!-- Side Brushes (rotating) -->
-                        <g transform="translate(75, 140)">
-                            <circle cx="0" cy="0" r="16" fill="#FF6B35" stroke="#333333" stroke-width="2"/>
-                            <circle cx="0" cy="0" r="10" fill="#FF8C00"/>
-                        </g>
-                        <g transform="translate(225, 140)">
-                            <circle cx="0" cy="0" r="16" fill="#FF6B35" stroke="#333333" stroke-width="2"/>
-                            <circle cx="0" cy="0" r="10" fill="#FF8C00"/>
-                        </g>
-                        
-                        <!-- Sensor Dots Top -->
-                        <circle cx="120" cy="60" r="4" fill="#00CC00" opacity="0.9"/>
-                        <circle cx="180" cy="60" r="4" fill="#00CC00" opacity="0.9"/>
-                        
-                        <!-- Sensor Dots Side -->
-                        <circle cx="65" cy="110" r="4" fill="#FF0000" opacity="0.8"/>
-                        <circle cx="235" cy="110" r="4" fill="#FF0000" opacity="0.8"/>
-                        
-                        <!-- Wheels -->
-                        <g transform="translate(90, 250)">
-                            <circle cx="0" cy="0" r="18" fill="#1a1a1a" stroke="#444444" stroke-width="2"/>
-                            <circle cx="0" cy="0" r="12" fill="none" stroke="#FF6B35" stroke-width="1" opacity="0.6"/>
-                            <circle cx="-6" cy="0" r="2" fill="#FF6B35"/>
-                            <circle cx="6" cy="0" r="2" fill="#FF6B35"/>
-                        </g>
-                        
-                        <g transform="translate(210, 250)">
-                            <circle cx="0" cy="0" r="18" fill="#1a1a1a" stroke="#444444" stroke-width="2"/>
-                            <circle cx="0" cy="0" r="12" fill="none" stroke="#FF6B35" stroke-width="1" opacity="0.6"/>
-                            <circle cx="-6" cy="0" r="2" fill="#FF6B35"/>
-                            <circle cx="6" cy="0" r="2" fill="#FF6B35"/>
-                        </g>
-                        
-                        <!-- Caster Wheel -->
-                        <circle cx="150" cy="310" r="8" fill="#333333" stroke="#666666" stroke-width="1"/>
-                        <circle cx="150" cy="310" r="5" fill="#999999"/>
-                    </svg>
+                    <div class="slider-container" id="bannerSlider">
+                        <div class="slider-wrapper">
+                            <img src="resimler/425dba6274028715e967-0.webp" alt="Robot Süpürge 1" class="slide active">
+                            <img src="resimler/S8_Plus_White_ID.webp" alt="Robot Süpürge 2" class="slide">
+                            <img src="resimler/en-iyi-robot-supurge-hangisi.webp" alt="Robot Süpürge 3" class="slide">
+                        </div>
+                        <div class="slider-dots">
+                            <span class="dot active" data-slide="0"></span>
+                            <span class="dot" data-slide="1"></span>
+                            <span class="dot" data-slide="2"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,8 +141,6 @@
                 <div class="about-text">
                     <h3>Neden DC Robot Tercih Etmelisiniz?</h3>
                     <ul class="benefits-list">
-                        <li>10+ Yıllık Deneyim</li>
-                        <li>Sertifikalı & Uzman Teknisyenler</li>
                         <li>Tüm Marka ve Modellere Hizmet</li>
                         <li>Hızlı ve Güvenilir Onarım</li>
                         <li>Uygun Fiyat & Şeffaf İşlem</li>
@@ -306,6 +159,23 @@
                     <div class="stat-box">
                         <h4>98%</h4>
                         <p>Memnuniyet Oranı</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-video">
+                <h3>Firma Tanıtım Videoları</h3>
+                <div class="video-grid">
+                    <div class="video-wrapper">
+                        <video controls class="video-player">
+                            <source src="video/WhatsApp Video 2026-06-20 at 21.35.57.mp4" type="video/mp4">
+                            Tarayıcınız video öğesini desteklemiyor.
+                        </video>
+                    </div>
+                    <div class="video-wrapper">
+                        <video controls class="video-player">
+                            <source src="video/WhatsApp Video 2026-06-20 at 21.44.30.mp4" type="video/mp4">
+                            Tarayıcınız video öğesini desteklemiyor.
+                        </video>
                     </div>
                 </div>
             </div>
@@ -348,33 +218,29 @@
                         <p><a href="tel:+905077097060">0507 709 70 60</a></p>
                     </div>
                     <div class="info-box">
-                        <h3>📧 E-Posta</h3>
-                        <p><a href="mailto:info@dcrobot.com">info@dcrobot.com</a></p>
-                    </div>
-                    <div class="info-box">
                         <h3>📱 Instagram</h3>
-                        <p><a href="https://instagram.com/tokatrobotsurgeservis" target="_blank">@tokatrobotsurgeservis</a></p>
+                        <p><a href="https://instagram.com/tokatrobotsupurgeservisi" target="_blank">@tokatrobotsupurgeservisi</a></p>
                     </div>
                     <div class="info-box">
                         <h3>🕐 Çalışma Saatleri</h3>
                         <p>Pazartesi - Cuma: 09:00 - 18:00<br>Cumartesi: 10:00 - 16:00</p>
                     </div>
+                    <div class="info-box">
+                        <h3>📍 Konum</h3>
+                        <p><a href="https://maps.app.goo.gl/2gYbdU5YSy6GDmgJ9" target="_blank">Haritada Gör</a></p>
+                    </div>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" placeholder="Adınız" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="E-posta" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Telefon" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Mesajınız" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Gönder</button>
-                </form>
+                <div class="contact-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.578!2d36.5408621!3d40.3426044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407db9f8fe606df1%3A0x52dcc269c4202400!2sVali+Ayhan+%C3%87evik+Cd.+No%3A24!5e0!3m2!1str!2str!4v1600000000000!5m2!1str!2str" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
             </div>
         </div>
     </section>

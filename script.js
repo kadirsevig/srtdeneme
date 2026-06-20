@@ -5,6 +5,7 @@ const navLinks = document.querySelector('.nav-links');
 if (menuToggle) {
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
     });
 }
 
@@ -13,6 +14,9 @@ const navItems = document.querySelectorAll('.nav-links a');
 navItems.forEach(item => {
     item.addEventListener('click', () => {
         navLinks.classList.remove('active');
+        if (menuToggle) {
+            menuToggle.classList.remove('active');
+        }
     });
 });
 
@@ -37,49 +41,6 @@ window.addEventListener('scroll', () => {
         }
     });
 });
-
-// Form Submission
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(contactForm);
-        const name = contactForm.querySelector('input[type="text"]').value;
-        const email = contactForm.querySelector('input[type="email"]').value;
-        const phone = contactForm.querySelector('input[type="tel"]').value;
-        const message = contactForm.querySelector('textarea').value;
-
-        // Validate form
-        if (!name || !email || !phone || !message) {
-            showNotification('Lütfen tüm alanları doldurunuz!', 'error');
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            showNotification('Geçerli bir e-posta adresi giriniz!', 'error');
-            return;
-        }
-
-        // Simulate form submission
-        const submitBtn = contactForm.querySelector('button');
-        submitBtn.textContent = 'Gönderiliyor...';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-            showNotification('Mesajınız başarıyla gönderildi! Kısa sürede sizinle iletişime geçeceğiz.', 'success');
-            contactForm.reset();
-            submitBtn.textContent = 'Gönder';
-            submitBtn.disabled = false;
-        }, 1500);
-    });
-}
-
-// Email Validation
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
 
 // Notification System
 function showNotification(message, type) {
@@ -171,5 +132,84 @@ document.querySelectorAll('.service-card, .brand-item, .stat-box, .info-box').fo
 window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
         navLinks.classList.remove('active');
+        if (menuToggle) {
+            menuToggle.classList.remove('active');
+        }
     }
+});
+
+// Slider Functionality
+class Slider {
+    constructor(containerId, interval = 4000) {
+        this.container = document.getElementById(containerId);
+        if (!this.container) return;
+        
+        this.slides = this.container.querySelectorAll('.slide');
+        this.dots = this.container.querySelectorAll('.dot');
+        this.currentIndex = 0;
+        this.interval = interval;
+        this.autoPlayInterval = null;
+        
+        this.init();
+    }
+    
+    init() {
+        // Add click events to dots
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.goToSlide(index);
+                this.resetAutoPlay();
+            });
+        });
+        
+        // Start auto play
+        this.startAutoPlay();
+        
+        // Pause on hover
+        this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
+        this.container.addEventListener('mouseleave', () => this.startAutoPlay());
+    }
+    
+    goToSlide(index) {
+        // Remove active class from current slide and dot
+        this.slides[this.currentIndex].classList.remove('active');
+        this.dots[this.currentIndex].classList.remove('active');
+        
+        // Update current index
+        this.currentIndex = index;
+        
+        // Add active class to new slide and dot
+        this.slides[this.currentIndex].classList.add('active');
+        this.dots[this.currentIndex].classList.add('active');
+    }
+    
+    nextSlide() {
+        const nextIndex = (this.currentIndex + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+    }
+    
+    startAutoPlay() {
+        if (this.autoPlayInterval) return;
+        this.autoPlayInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.interval);
+    }
+    
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+    
+    resetAutoPlay() {
+        this.stopAutoPlay();
+        this.startAutoPlay();
+    }
+}
+
+// Initialize sliders
+document.addEventListener('DOMContentLoaded', () => {
+    const heroSlider = new Slider('heroSlider', 4000);
+    const bannerSlider = new Slider('bannerSlider', 5000);
 });
