@@ -211,5 +211,4 @@ class Slider {
 // Initialize sliders
 document.addEventListener('DOMContentLoaded', () => {
     const heroSlider = new Slider('heroSlider', 4000);
-    const bannerSlider = new Slider('bannerSlider', 5000);
 });
