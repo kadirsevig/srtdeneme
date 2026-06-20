@@ -212,11 +212,20 @@ class Slider {
 document.addEventListener('DOMContentLoaded', () => {
     const heroSlider = new Slider('heroSlider', 4000);
     
-    // Reset scroll position on page load
+    // Reset scroll position on page load with multiple methods
     window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
     
     // Clear URL hash to prevent auto-scroll
     if (window.location.hash) {
         history.replaceState(null, null, ' ');
     }
+});
+
+// Also reset scroll on window load (backup)
+window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 });
